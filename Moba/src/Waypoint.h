@@ -8,7 +8,7 @@ using namespace math;
 
 class Waypoint {
 private:
-	Vector2D position, *target;
+	Vector2D position, *target, targetSize;
 	int height;
 	bool block, debug;
 
@@ -24,6 +24,16 @@ public:
 	Waypoint(Vector2D position, Vector2D *target) {
 		this->position = position;
 		this->target = target;
+		this->targetSize = Vector2D();
+		this->height = UpdateHeight();
+		debug = true;
+		block = false;
+	}
+
+	Waypoint(Vector2D position, Vector2D *target, Vector2D targetSize) {
+		this->position = position;
+		this->target = target;
+		this->targetSize = targetSize;
 		this->height = UpdateHeight();
 		debug = true;
 		block = false;
@@ -38,8 +48,13 @@ public:
 	void Draw() {
 		if (debug) {
 			ofSetColor(ofColor().red);
-			ofDrawCircle(position.x, position.y, 10);
+			ofDrawCircle(position.x, position.y, 2);
+			
+			ofSetColor(ofColor().green);
+			ofDrawCircle(target->x + targetSize.x, target->y + targetSize.y, 5);
+
 			ofSetColor(ofColor().white);
+
 		}
 	}
 
@@ -55,7 +70,7 @@ public:
 	}
 
 	double UpdateHeight() {
-		return MathUtils::GetDistance(position, *(target));
+		return MathUtils::GetDistance(position, *(target) + targetSize);
 	}
 
 	void UpdateTarget(Vector2D *target) {

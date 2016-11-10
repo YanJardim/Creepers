@@ -11,21 +11,21 @@ using namespace math;
 class WaypointManager {
 private:
 	vector<Waypoint> waypoints;
-	Vector2D *target;
+	Vector2D *target, targetSize;
 
 public:
 	WaypointManager() {
 
 	}
-	WaypointManager(Vector2D *target) {
+	WaypointManager(Vector2D *target, Vector2D targetSize) {
 		this->target = target;
-
+		this->targetSize = targetSize;
 		AddWaypoints();
 	}
 	void AddWaypoints() {
-		waypoints.push_back(Waypoint(Vector2D(10, 10), target));
-		waypoints.push_back(Waypoint(Vector2D(100, 10), target));
-		waypoints.push_back(Waypoint(Vector2D(100, 100), target));
+		waypoints.push_back(Waypoint(Vector2D(10, 10), target, targetSize));
+		waypoints.push_back(Waypoint(Vector2D(100, 10), target, targetSize));
+		waypoints.push_back(Waypoint(Vector2D(100, 100), target, targetSize));
 	}
 
 	void Update(Vector2D *target) {

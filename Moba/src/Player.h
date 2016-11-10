@@ -65,4 +65,11 @@ public:
 		return position;
 	}
 
+	Vector2D GetSize() {
+		return Vector2D(size, size);
+	}
+	Vector2D GetCenter() {
+		return Vector2D(size/2, size/2);
+	}
+
 };
