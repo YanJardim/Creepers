@@ -2,7 +2,7 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-	p = Player(500, 500, 200, 50);
+	p = Player(500, 500, 200);
 	wManager = WaypointManager(p.GetPosition(), p.GetCenter());
 }
 

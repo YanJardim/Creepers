@@ -1,41 +1,39 @@
 #pragma once
 
-#include "ofMain.h"
-#include "Vector2D.h"
-#include "MathUtils.h"
+#include "GameObject.h"
 
 using namespace math;
 
-class Player {
+class Player : public GameObject{
 
 private:
-	ofRectangle graphics;
-	Vector2D *position, direction, velocity, mouse, center;
-	int speed, size;
+	Vector2D direction, velocity, mouse;
+	int speed;
 	bool target;
 
 public:
 	Player() {
 		this->target = false;
 	}
-	Player(int x, int y, int speed, int size) {
+	Player(int x, int y, int speed, Vector2D size) : GameObject(new Vector2D(x, y), size) {
 		position = new Vector2D();
-		this->position->x = x;
-		this->position->y = y;
+
 		this->speed = speed;
 		this->size = size;
 		this->target = false;
-		this->graphics = ofRectangle(x, y, size, size);
+		this->graphics = ofRectangle(x, y, size.x, size.y);
 		this->velocity = Vector2D(0, 0);
-		this->center = Vector2D(size / 2, size / 2);
 	}
-	Player(Vector2D *position, int speed) {
-		this->position = position;
+	Player(Vector2D *position, int speed, Vector2D size) : GameObject(position, size){
 		this->speed = speed;
 		this->target = false;
-		this->graphics = ofRectangle(position->x, position->y, size, size);
+		this->graphics = ofRectangle(position->x, position->y, size.x, size.y);
 		this->velocity = Vector2D(0, 0);
-		this->center = Vector2D(size / 2, size / 2);
+
+	}
+
+	void Start() {
+
 	}
 
 	void Draw() {
@@ -53,10 +51,10 @@ public:
 		if(d > 2)
 			*(position) += velocity * ofGetLastFrameTime();
 
-		graphics = ofRectangle(position->x, position->y, size, size);
+		graphics = ofRectangle(position->x, position->y, size.x, size.y);
 	}
 	void Move(Vector2D mouse) {
-		this->mouse = mouse - center;
+		this->mouse = mouse - GetCenter();
 		
 		target = true;
 	}
@@ -66,10 +64,7 @@ public:
 	}
 
 	Vector2D GetSize() {
-		return Vector2D(size, size);
+		return this->size;
 	}
-	Vector2D GetCenter() {
-		return Vector2D(size/2, size/2);
-	}
-
+	
 };
