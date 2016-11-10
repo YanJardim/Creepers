@@ -18,7 +18,9 @@ public:
 		this->target = target;
 	}
 	void AddWaypoints() {
-		waypoints.push_back(Waypoint());
+		waypoints.push_back(Waypoint(Vector2D(10, 10), target));
+		waypoints.push_back(Waypoint(Vector2D(100, 10), target));
+		waypoints.push_back(Waypoint(Vector2D(100, 100), target));
 	}
 	
 };
