@@ -28,7 +28,7 @@ public:
 		waypoints.push_back(Waypoint(Vector2D(100, 100), target, targetSize));
 	}
 
-	void Update(Vector2D *target) {
+	void Update() {
 		for each (Waypoint a in waypoints)
 		{
 			//a.UpdateTarget(target);

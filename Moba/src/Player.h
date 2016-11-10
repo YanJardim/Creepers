@@ -16,8 +16,6 @@ public:
 		this->target = false;
 	}
 	Player(int x, int y, int speed, Vector2D size) : GameObject(new Vector2D(x, y), size) {
-		position = new Vector2D();
-
 		this->speed = speed;
 		this->size = size;
 		this->target = false;

@@ -2,14 +2,14 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-	p = Player(500, 500, 200);
+	p = Player(500, 500, 200, Vector2D(50, 50));
 	wManager = WaypointManager(p.GetPosition(), p.GetCenter());
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
 	p.Update();
-	wManager.Update(p.GetPosition());
+	wManager.Update();
 	//wManager.PrintHeights();
 }
 
