@@ -8,11 +8,12 @@ using namespace math;
 
 class Waypoint {
 private:
-	Vector2D position, target;
+	Vector2D position, *target;
 	int height;
 	bool block, debug;
 
 public:
+
 	Waypoint(Vector2D position, int height) {
 		this->position = position;
 		this->height = height;
@@ -20,23 +21,24 @@ public:
 		block = false;
 	}
 
-	Waypoint(Vector2D position, Vector2D target) {
+	Waypoint(Vector2D position, Vector2D *target) {
 		this->position = position;
-		this->height = height;
 		this->target = target;
+		this->height = UpdateHeight();
 		debug = true;
 		block = false;
 	}
 
 	void Update() {
-		if (target != Vector2D()) {
-			UpdateHeight();
-		}
+		
+		height = UpdateHeight();
+		cout << height << endl;
+		
 	}
 	void Draw() {
 		if (debug) {
 			ofSetColor(ofColor().red);
-			ofDrawCircle(position.x, position.y, 1);
+			ofDrawCircle(position.x, position.y, 10);
 			ofSetColor(ofColor().white);
 		}
 	}
@@ -52,7 +54,11 @@ public:
 		return height;
 	}
 
-	void UpdateHeight() {
-		height = MathUtils::GetDistance(position, target);
+	double UpdateHeight() {
+		return MathUtils::GetDistance(position, *(target));
+	}
+
+	void UpdateTarget(Vector2D *target) {
+		this->target = target;
 	}
 };

@@ -3,16 +3,20 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
 	p = Player(500, 500, 200, 50);
+	wManager = WaypointManager(p.GetPosition());
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
 	p.Update();
+	wManager.Update(p.GetPosition());
+	//wManager.PrintHeights();
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
 	p.Draw();
+	wManager.DrawWaypoints();
 }
 
 //--------------------------------------------------------------
