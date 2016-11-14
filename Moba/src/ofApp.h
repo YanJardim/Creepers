@@ -3,6 +3,7 @@
 #include "ofMain.h"
 #include "Player.h"
 #include "WaypointManager.h"
+#include "Enemy.h"
 
 class ofApp : public ofBaseApp{
 
@@ -24,6 +25,7 @@ class ofApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
 
 		Player p;
+		Enemy e1;
 		WaypointManager wManager;
 		
 };

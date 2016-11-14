@@ -25,4 +25,9 @@ public:
 
 		return sqrt(distancex + distancey);
 	}
+
+	static float GetAngle(Vector2D p1, Vector2D p2) {
+		float a = atan2(p1.y - p2.y, p1.x - p2.x);
+		return a * 180 / PI;
+	}
 };

@@ -2,21 +2,27 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-	p = Player(500, 500, 200, Vector2D(50, 50));
+	p = Player(500, 500, 200, 50);
 	wManager = WaypointManager(p.GetPosition(), p.GetCenter());
+	e1 = Enemy(new Vector2D(200, 200), 100, 70);
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
 	p.Update();
 	wManager.Update();
+	e1.Update();
+	e1.LookAt(*(p.GetPosition()));
 	//wManager.PrintHeights();
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-	p.Draw();
+	
 	wManager.DrawWaypoints();
+	e1.Draw();
+
+	p.Draw();
 }
 
 //--------------------------------------------------------------
@@ -41,8 +47,10 @@ void ofApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
-	if(button == 0)
+	if (button == 0) {
 		p.Move(Vector2D(x, y));
+		
+	}
 }
 
 //--------------------------------------------------------------

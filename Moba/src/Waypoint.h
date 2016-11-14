@@ -42,7 +42,7 @@ public:
 	void Update() {
 		
 		height = UpdateHeight();
-		cout << height << endl;
+		//cout << height << endl;
 		
 	}
 	void Draw() {

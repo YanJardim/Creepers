@@ -97,8 +97,16 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
+      <AdditionalIncludeDirectories>C:\of_v0.9.4_RC1_vs_release\addons\ofxBox2d\libs\Box2D;
+C:\of_v0.9.4_RC1_vs_release\addons\ofxBox2d\libs\Box2D\Collision;
+C:\of_v0.9.4_RC1_vs_release\addons\ofxBox2d\libs\Box2D\Collision\Shapes;
+C:\of_v0.9.4_RC1_vs_release\addons\ofxBox2d\libs\Box2D\Common;
+C:\of_v0.9.4_RC1_vs_release\addons\ofxBox2d\libs\Box2D\Dynamics;
+C:\of_v0.9.4_RC1_vs_release\addons\ofxBox2d\libs\Box2D\Dynamics\Contacts;
+C:\of_v0.9.4_RC1_vs_release\addons\ofxBox2d\libs\Box2D\Dynamics\Joints;
+C:\of_v0.9.4_RC1_vs_release\addons\ofxBox2d\libs\Box2D\Rope;
+C:\of_v0.9.4_RC1_vs_release\addons\ofxBox2d\libs\triangle;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -117,7 +125,6 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
@@ -125,7 +132,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
@@ -137,9 +143,17 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <AdditionalIncludeDirectories>C:\of_v0.9.4_RC1_vs_release\addons\ofxBox2d\libs\Box2D;
+C:\of_v0.9.4_RC1_vs_release\addons\ofxBox2d\libs\Box2D\Collision;
+C:\of_v0.9.4_RC1_vs_release\addons\ofxBox2d\libs\Box2D\Collision\Shapes;
+C:\of_v0.9.4_RC1_vs_release\addons\ofxBox2d\libs\Box2D\Common;
+C:\of_v0.9.4_RC1_vs_release\addons\ofxBox2d\libs\Box2D\Dynamics;
+C:\of_v0.9.4_RC1_vs_release\addons\ofxBox2d\libs\Box2D\Dynamics\Contacts;
+C:\of_v0.9.4_RC1_vs_release\addons\ofxBox2d\libs\Box2D\Dynamics\Joints;
+C:\of_v0.9.4_RC1_vs_release\addons\ofxBox2d\libs\Box2D\Rope;
+C:\of_v0.9.4_RC1_vs_release\addons\ofxBox2d\libs\triangle;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
@@ -148,7 +162,6 @@
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
@@ -160,8 +173,16 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
+      <AdditionalIncludeDirectories>C:\of_v0.9.4_RC1_vs_release\addons\ofxBox2d\libs\Box2D;
+C:\of_v0.9.4_RC1_vs_release\addons\ofxBox2d\libs\Box2D\Collision;
+C:\of_v0.9.4_RC1_vs_release\addons\ofxBox2d\libs\Box2D\Collision\Shapes;
+C:\of_v0.9.4_RC1_vs_release\addons\ofxBox2d\libs\Box2D\Common;
+C:\of_v0.9.4_RC1_vs_release\addons\ofxBox2d\libs\Box2D\Dynamics;
+C:\of_v0.9.4_RC1_vs_release\addons\ofxBox2d\libs\Box2D\Dynamics\Contacts;
+C:\of_v0.9.4_RC1_vs_release\addons\ofxBox2d\libs\Box2D\Dynamics\Joints;
+C:\of_v0.9.4_RC1_vs_release\addons\ofxBox2d\libs\Box2D\Rope;
+C:\of_v0.9.4_RC1_vs_release\addons\ofxBox2d\libs\triangle;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
@@ -170,7 +191,6 @@
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
