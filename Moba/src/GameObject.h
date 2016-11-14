@@ -8,7 +8,7 @@ using namespace math;
 
  class GameObject {
 protected:
-
+	string tag;
 	Vector2D *position, size;
 
 	ofPolyline graphics;
@@ -16,14 +16,24 @@ protected:
 public:
 
 	GameObject() {};
+
 	GameObject(Vector2D *position, Vector2D size) {
 		this->position = position;
 		this->size = size;
+		this->tag = "Untagged";
 
 	}
-	GameObject(Vector2D *position, ofImage image) {
+
+	GameObject(Vector2D *position, Vector2D size, string tag) {
+		this->position = position;
+		this->size = size;
+		this->tag = tag;
+
+	}
+	GameObject(Vector2D *position, ofImage imagem, string tag) {
 		this->position = position;
 		this->image = image;
+		this->tag = tag;
 
 	}
 
@@ -150,6 +160,19 @@ public:
 		return graphics;
 	}
 
+	string GetTag() {
+		return tag;
+	}
+	void SetTag(string newValue) {
+		this->tag = newValue;
+	}
+
+	bool CompareTag(string tag1, string tag2) {
+		if(tag1 == tag2)
+			return true;
+
+		return false;
+	}
 	
 
 };

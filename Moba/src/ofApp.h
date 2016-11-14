@@ -27,8 +27,7 @@ class ofApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
 
 		Player p;
-		Enemy e1;
-		//WaypointManager wManager;
+
 
 		 
 		

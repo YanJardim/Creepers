@@ -15,7 +15,7 @@ private:
 	
 public:
 	Enemy() {}
-	Enemy(Vector2D *position, int speed, int size) : GameObject(position, Vector2D(size, size)){
+	Enemy(Vector2D *position, int speed, int size, string tag) : GameObject(position, Vector2D(size, size), tag){
 		angle = 0;
 		this->speed = speed;
 		this->visionSize = size;

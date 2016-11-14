@@ -38,7 +38,7 @@ public:
 	}
 	void SpawnEnemy() {
 		if (canSpawn) {
-			Enemy *aux = new Enemy(new Vector2D(500, 500), speed, size);
+			Enemy *aux = new Enemy(new Vector2D(spawnPosition.x, spawnPosition.y), speed, size, "Enemy");
 
 			enemys.push_back(aux);
 		}

@@ -2,33 +2,26 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-	p = Player(500, 500, 200, 20);
-	//wManager = WaypointManager(new Vector2D(ofGetWindowSize().x/2, ofGetWindowSize().y), p.GetCenter());
+	p = Player(500, 500, 200, 20, "Player");
 	WMANAGER->Start(new Vector2D(ofGetWindowSize().x, ofGetWindowSize().y/2), p.GetCenter());
 	EMANAGER->Start(Vector2D(0.f, ofGetWindowSize().y / 2));
-	//e1 = Enemy(new Vector2D(200, 200), 100, 20);
+
 	
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
 	p.Update();
-	//wManager.Update();
 	WMANAGER->Update();
 	EMANAGER->Update();
-	//e1.Update();
-	
-	//wManager.PrintHeights();
+
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
 	
-	//wManager.DrawWaypoints();
-	//WaypointManager::GetInstance()->Update();
 	WMANAGER->DrawWaypoints();
 	EMANAGER->Draw();
-	//e1.Draw();
 
 	p.Draw();
 }

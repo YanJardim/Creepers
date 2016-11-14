@@ -16,7 +16,7 @@ public:
 	Player() {
 		this->target = false;
 	}
-	Player(int x, int y, int speed, int size) : GameObject(new Vector2D(x, y), Vector2D(size, size)) {
+	Player(int x, int y, int speed, int size, string tag) : GameObject(new Vector2D(x, y), Vector2D(size, size), tag) {
 		this->speed = speed;
 		this->size = Vector2D(size, size);
 		this->target = false;
