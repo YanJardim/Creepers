@@ -51,7 +51,7 @@ public:
 			ofDrawCircle(position.x, position.y, 2);
 			
 			ofSetColor(ofColor().green);
-			ofDrawCircle(target->x + targetSize.x, target->y + targetSize.y, 5);
+			ofDrawCircle(target->x, target->y, 5);
 
 			ofSetColor(ofColor().white);
 
@@ -70,10 +70,18 @@ public:
 	}
 
 	double UpdateHeight() {
-		return MathUtils::GetDistance(position, *(target) + targetSize);
+		return MathUtils::GetDistance(position, *(target));
 	}
 
 	void UpdateTarget(Vector2D *target) {
 		this->target = target;
+	}
+
+	bool GetBlock() {
+		return block;
+	}
+
+	void SetBlock(bool newValue) {
+		block = newValue;
 	}
 };

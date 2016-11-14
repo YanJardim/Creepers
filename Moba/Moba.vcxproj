@@ -202,6 +202,7 @@ C:\of_v0.9.4_RC1_vs_release\addons\ofxBox2d\libs\triangle;%(AdditionalIncludeDir
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Enemy.h" />
+    <ClInclude Include="src\EnemyManager.h" />
     <ClInclude Include="src\GameObject.h" />
     <ClInclude Include="src\Map.h" />
     <ClInclude Include="src\MathUtils.h" />

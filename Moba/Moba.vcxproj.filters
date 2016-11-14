@@ -41,6 +41,9 @@
     <ClInclude Include="src\GameObject.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="src\EnemyManager.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icon.rc" />

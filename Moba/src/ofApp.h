@@ -1,9 +1,11 @@
 #pragma once
 
+
+
 #include "ofMain.h"
 #include "Player.h"
-#include "WaypointManager.h"
-#include "Enemy.h"
+#include "EnemyManager.h"
+
 
 class ofApp : public ofBaseApp{
 
@@ -26,6 +28,8 @@ class ofApp : public ofBaseApp{
 
 		Player p;
 		Enemy e1;
-		WaypointManager wManager;
+		//WaypointManager wManager;
+
+		 
 		
 };

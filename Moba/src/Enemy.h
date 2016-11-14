@@ -2,12 +2,11 @@
 
 #include "GameObject.h"
 
-using namespace math;
 
 class Enemy : public GameObject{
 private:
 	int speed, angle;
-	Vector2D p1, p2, p3;
+	Vector2D target, velocity;
 	ofPolyline vision;
 	ofPath visionPath, graphicsPath;
 	int visionSize;
@@ -20,43 +19,58 @@ public:
 		angle = 0;
 		this->speed = speed;
 		this->visionSize = size;
-		/*p1.set((position->x + GetCenter().x), (position->y + GetCenter().y));
-		p2.set((position->x + GetCenter().x) + 80, (position->y + GetCenter().y) - 80);
-		p3.set((position->x + GetCenter().x) + 80, (position->y + GetCenter().y) + 80);*/
-
-		/*p1.set((position->x), (position->y));
-		p2.set((position->x) + 80, (position->y) - 80);
-		p3.set((position->x) + 80, (position->y) + 80);*/
+		
 		CreateTriangle(vision, visionSize);
 		CreateSquare(size);
 		FillPoly(visionPath, vision, ofColor().gray);
 		FillPoly(graphicsPath, graphics, ofColor().black);
 		canRotate = false;
+		//target = *(position);
+
+		target = Vector2D(position->x, position->y);
+		velocity = normalize(MathUtils::GetDirection(*(position), target));
 		
 	}
+
 
 	void Start() override {
 		
 	}
 
 	void Update() override {
-		CreateSquare(size.x);
-		CreateTriangle(vision,100);
-
+		Follow();
+		CreateSquare(graphics, size.x);
+		CreateTriangle(vision,size.x);
+		
 	}
 
 	void LookAt(Vector2D target) {
 		float newAng = MathUtils::GetAngle(*(this->position), target);
 		angle = newAng;
-		
+	}
+
+	void Follow() {
+		velocity = normalize(MathUtils::GetDirection(*(position), target));
+
+		if(MathUtils::GetDistance(*(position), target)> 2.f)
+			*(position) += velocity * ofGetLastFrameTime() * speed;
 	}
 
 	void Draw() override {
 	
 		//if (angle > 360) angle = 0;
 
-		
 		ofPushMatrix();
+			ofTranslate(position->x, position->y);
+			ofRotate(angle - 180);
+			ofPushMatrix();
+			ofTranslate(-position->x,-position->y);
+				graphics.draw();
+				vision.draw();
+			ofPopMatrix();
+		ofPopMatrix();
+		
+		/*ofPushMatrix();
 			
 			ofTranslate(position->x, position->y);
 
@@ -78,16 +92,19 @@ public:
 
 			ofPushMatrix();
 				
-				visionPath.draw();
+				//visionPath.draw();
 				
 			ofPopMatrix();
 			
-		ofPopMatrix();
+		ofPopMatrix();*/
 
 		
 	}
 
-	
+	void SetTarget(Vector2D target) {
+		this->target = target;
+		
+	}
 
 	bool CheckCollision() {
 		

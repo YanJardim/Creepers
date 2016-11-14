@@ -1,8 +1,14 @@
 #include "ofMain.h"
 #include "ofApp.h"
+#include "WaypointManager.h"
+#include "EnemyManager.h"
+
+WaypointManager *WaypointManager::instance = 0;
+EnemyManager *EnemyManager::instance = 0;
 
 //========================================================================
 int main( ){
+
 	ofSetupOpenGL(1024,768,OF_WINDOW);			// <-------- setup the GL context
 
 	// this kicks off the running of my app

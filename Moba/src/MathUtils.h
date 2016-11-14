@@ -30,4 +30,8 @@ public:
 		float a = atan2(p1.y - p2.y, p1.x - p2.x);
 		return a * 180 / PI;
 	}
+
+	static Vector2D GetDirection(Vector2D p1, Vector2D p2) {
+		return Vector2D(p2.x - p1.x, p2.y - p1.y);
+	}
 };

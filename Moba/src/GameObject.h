@@ -77,19 +77,43 @@ public:
 		poly.close();
 	}
 
+	void CreateRotateSquare(ofPolyline &poly, int size) {
+		this->size = Vector2D(size, size);
+		poly.clear();
+
+		poly.addVertex(+size, +size);
+		poly.addVertex(+size, -size);
+		poly.addVertex(-size, -size);
+		poly.addVertex(-size, +size);
+
+		poly.close();
+	}
+
 	void CreateTriangle(int size) {
-		this->graphics.addVertex(size, size/2);
-		this->graphics.addVertex(size, size);
-		this->graphics.addVertex(size, -size);
+		graphics.clear();
+		this->graphics.addVertex(position->x + size * 2, position->y);
+		this->graphics.addVertex(position->x + size, position->y + size);
+		this->graphics.addVertex(position->x + size, position->y + (-size));
 		this->graphics.close();
 	}
 
 	void CreateTriangle(ofPolyline &poly, int size) {
-		poly.addVertex(size*2, 0);
-		poly.addVertex(size, size);
-		poly.addVertex(size, -size);
+		poly.clear();
+		poly.addVertex(position->x + size*2, position->y);
+		poly.addVertex(position->x + size, position->y + size);
+		poly.addVertex(position->x + size, position->y - size);
 		poly.close();
 	}
+
+	void CreateRotateTriangle(ofPolyline &poly, int size) {
+		poly.clear();
+		poly.addVertex(size * 2, 0);
+		poly.addVertex(size, + size);
+		poly.addVertex(size, - size);
+		poly.close();
+	}
+
+
 
 	void FillPolyClear(ofPath &path, ofPolyline poly, ofColor color) {
 		path.clear();
