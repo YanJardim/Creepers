@@ -45,6 +45,13 @@ void ofApp::keyPressed(int key){
 	if (key == 'i') {
 		MathUtils::Alternate(showWaypoints);
 	}
+
+	if (key == '+') {
+		EMANAGER->ChangeSpeed(EMANAGER->GetSpeed() + 10);
+	}
+	if (key == '-') {
+		EMANAGER->ChangeSpeed(EMANAGER->GetSpeed() - 10);
+	}
 }
 
 //--------------------------------------------------------------

@@ -105,6 +105,13 @@ public:
 		LookAt(target.GetPosition());
 	}
 
+	void SetSpeed(int newValue) {
+		this->speed = newValue;
+	}
+	int GetSpeed() {
+		return speed;
+	}
+
 	
 
 	

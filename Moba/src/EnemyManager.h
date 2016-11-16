@@ -42,13 +42,13 @@ public:
 	void SpawnEnemy() {
 		if (canSpawn) {
 			int r = rand() % 3;
-			cout<<r << endl;
+
 			Enemy *aux;
 			if(r == 0)
 				aux = new Enemy(new Vector2D(spawnPosition.x, spawnPosition.y), speed, size, "Enemy");
-			if (r == 1)
+			else if (r == 1)
 				aux = new Enemy(new Vector2D(spawnPosition.x-70, spawnPosition.y), speed, size, "Enemy");
-			if (r == 2)
+			else if (r == 2)
 				aux = new Enemy(new Vector2D(spawnPosition.x, spawnPosition.y+50), speed, size, "Enemy");
 
 			enemies.push_back(aux);
@@ -72,6 +72,8 @@ public:
 		{
 			a->Draw();
 		}
+
+		ofDrawBitmapString("Minions Speed: " + ofToString(EMANAGER->GetSpeed()), 10, 10);
 	
 	}
 
@@ -116,5 +118,17 @@ public:
 			}
 			cout << "------------------------------------" << endl;
 		}
+	}
+
+	void ChangeSpeed(int newValue) {
+		this->speed = newValue;
+		for each (Enemy *a in enemies)
+		{
+			a->SetSpeed(newValue);
+		}
+	}
+
+	int GetSpeed() {
+		return speed;
 	}
 };
