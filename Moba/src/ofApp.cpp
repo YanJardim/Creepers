@@ -11,6 +11,7 @@ void ofApp::setup(){
 	WMANAGER->Start(new Vector2D(map.GetBase()), map);
 	EMANAGER->Start(Vector2D(map.GetEnemyBase().x - 0, map.GetEnemyBase().y + 0), 200, 100, 10);
 	
+	showWaypoints = false;
 	
 }
 
@@ -26,7 +27,9 @@ void ofApp::update(){
 void ofApp::draw(){
 	map.Draw();
 
-	//WMANAGER->DrawWaypoints();
+	if(showWaypoints)
+		WMANAGER->DrawWaypoints();
+
 	EMANAGER->Draw();
 	
 	player.Draw();
@@ -34,7 +37,9 @@ void ofApp::draw(){
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-
+	if (key == 'i') {
+		MathUtils::Alternate(showWaypoints);
+	}
 }
 
 //--------------------------------------------------------------

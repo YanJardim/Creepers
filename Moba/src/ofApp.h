@@ -28,6 +28,8 @@ class ofApp : public ofBaseApp{
 		Player player;
 		Map map;
 
+		bool showWaypoints;
+
 		 
 		
 };
