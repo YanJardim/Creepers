@@ -15,7 +15,7 @@ private:
 	bool canSpawn;
 	int timer;
 
-	const int speed = 100, size = 20;
+	int speed = 100, size = 20;
 
 public:
 	static EnemyManager *instance;
@@ -30,8 +30,10 @@ public:
 		canSpawn = true;
 
 	}
-	void Start(Vector2D spawnPosition) {
+	void Start(Vector2D spawnPosition, int speed, int size) {
 		this->spawnPosition = spawnPosition;
+		this->speed = speed;
+		this->size = size;
 		canSpawn = true;
 		timer = 0;
 	
@@ -39,7 +41,6 @@ public:
 	void SpawnEnemy() {
 		if (canSpawn) {
 			Enemy *aux = new Enemy(new Vector2D(spawnPosition.x, spawnPosition.y), speed, size, "Enemy");
-
 			enemys.push_back(aux);
 		}
 
@@ -65,7 +66,7 @@ public:
 	}
 
 	void Update() {
-		SetTargetAll();
+		//SetTargetAll();
 		if (ofGetFrameNum()%100 == 0) {
 			SpawnEnemy();
 			

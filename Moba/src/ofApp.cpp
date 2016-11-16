@@ -2,16 +2,18 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-	p = Player(500, 500, 200, 20, "Player");
-	WMANAGER->Start(new Vector2D(ofGetWindowSize().x, ofGetWindowSize().y/2), p.GetCenter());
-	EMANAGER->Start(Vector2D(0.f, ofGetWindowSize().y / 2));
+	map = Map(0, 0, ofImage("Images/map.png"), "Map");
+	player = Player(new Vector2D(map.GetBase()), 200, 20, "Player");
+	
+	WMANAGER->Start(new Vector2D(map.GetBase()), map);
+	EMANAGER->Start(map.GetEnemyBase(), 100, 10);
 
 	
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-	p.Update();
+	player.Update();
 	WMANAGER->Update();
 	EMANAGER->Update();
 
@@ -19,11 +21,12 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-	
+	map.Draw();
+
 	WMANAGER->DrawWaypoints();
 	EMANAGER->Draw();
-
-	p.Draw();
+	
+	player.Draw();
 }
 
 //--------------------------------------------------------------
@@ -49,7 +52,7 @@ void ofApp::mouseDragged(int x, int y, int button){
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
 	if (button == OF_MOUSE_BUTTON_1) {
-		p.Move(Vector2D(x, y));
+		player.Move(Vector2D(x, y));
 		
 	}
 

@@ -2,6 +2,10 @@
 
 #include "GameObject.h"
 #include "Waypoint.h"
+#include "WaypointManager.h"
+
+#define WMANAGER WaypointManager::GetInstance()
+#define EMANAGER EnemyManager::GetInstance()
 
 
 class Enemy : public GameObject{
@@ -29,7 +33,7 @@ public:
 		canRotate = false;
 		//target = *(position);
 
-		target.SetPosition(Vector2D(position->x, position->y));
+		target.SetPosition(Vector2D(0.f, position->y));
 		velocity = normalize(MathUtils::GetDirection(*(position), target.GetPosition()));
 		
 	}
@@ -40,6 +44,7 @@ public:
 	}
 
 	void Update() override {
+		UpdateTarget();
 		Follow();
 		CreateSquare(graphics, size.x);
 		CreateTriangle(vision,size.x);
@@ -63,43 +68,20 @@ public:
 		//if (angle > 360) angle = 0;
 
 		ofPushMatrix();
+
 			ofTranslate(position->x, position->y);
 			ofRotate(angle - 180);
+
 			ofPushMatrix();
-			ofTranslate(-position->x,-position->y);
+
+				ofTranslate(-position->x,-position->y);
 				graphics.draw();
 				vision.draw();
+
 			ofPopMatrix();
+
 		ofPopMatrix();
 		
-		/*ofPushMatrix();
-			
-			ofTranslate(position->x, position->y);
-
-			ofRotate(angle - 180);
-	
-			
-
-			ofSetColor(0, 0, 255);
-
-			ofPushMatrix();
-
-				ofTranslate(-position->x, -position->y);
-				graphics.draw();
-				graphicsPath.draw();
-
-			ofPopMatrix();
-
-			ofSetColor(0, 255, 0);
-
-			ofPushMatrix();
-				
-				//visionPath.draw();
-				
-			ofPopMatrix();
-			
-		ofPopMatrix();*/
-
 		
 	}
 
@@ -111,8 +93,18 @@ public:
 		return this->target;
 	}
 
+	void SetVelocity(Vector2D newValue) {
+		this->velocity = newValue;
+	}
+
 	bool CheckCollision() {
 		
+	}
+
+	void UpdateTarget() {
+		Waypoint target = WMANAGER->GetNearWaypoint(*(GetPosition()));
+		SetTarget(target);
+		LookAt(target.GetPosition());
 	}
 
 	

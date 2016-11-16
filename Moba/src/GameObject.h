@@ -143,6 +143,10 @@ public:
 		path.simplify();
 	}
 
+	void DrawImage(ofImage image) {
+		image.draw(position->x, position->y);
+	}
+
 
 
 	Vector2D *GetPosition() {

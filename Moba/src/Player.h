@@ -26,7 +26,7 @@ public:
 		FillPoly(path, graphics, ofColor().darkGray);
 		this->velocity = Vector2D(0, 0);
 	}
-	Player(Vector2D *position, int speed, int size) : GameObject(position, Vector2D(size, size)){
+	Player(Vector2D *position, int speed, int size, string tag) : GameObject(position, Vector2D(size, size), tag){
 		this->speed = speed;
 		this->target = false;
 		//this->graphics = ofRectangle(position->x, position->y, size.x, size.y);
