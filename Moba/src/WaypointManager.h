@@ -15,8 +15,8 @@ private:
 	Vector2D *target = nullptr, targetSize;
 	Map map;
 
-	const int detectRadius = 85;
-	const int distanceBetweenPoints = 80;
+	const int detectRadius = 37;
+	const int distanceBetweenPoints = 30;
 
 public:
 	static WaypointManager *instance;
@@ -37,9 +37,9 @@ public:
 	}
 	void AddWaypoints() {
 
-		int limitX = 12, limitY = 9, limitXY = 15;
-		int dX = 70, dY = 50;
-		for (int i = 3; i <= limitX; i++) {
+		int limitX = 32, limitY = 24, limitXY = 40;
+		int dX = 25, dY = 18;
+		for (int i = 1; i <= limitX; i++) {
 			waypoints.push_back(Waypoint(Vector2D(map.GetEnemyBase().x - distanceBetweenPoints * i, map.GetEnemyBase().y), target));
 		}
 
@@ -47,7 +47,7 @@ public:
 			waypoints.push_back(Waypoint(Vector2D(map.GetEnemyBase().x - distanceBetweenPoints * limitX, map.GetEnemyBase().y + distanceBetweenPoints * i), target));
 		}
 
-		for (int i = 2; i <= limitY; i++) {
+		for (int i = 1; i <= limitY; i++) {
 			waypoints.push_back(Waypoint(Vector2D(map.GetEnemyBase().x, map.GetEnemyBase().y + distanceBetweenPoints * i), target));
 		}
 

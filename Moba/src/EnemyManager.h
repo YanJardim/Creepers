@@ -9,9 +9,9 @@
 
 class EnemyManager {
 private:
-	vector<Enemy*> enemys;
+	vector<Enemy*> enemies;
 	Vector2D spawnPosition;
-
+	int spawnRatio;
 	bool canSpawn;
 	int timer;
 
@@ -30,8 +30,9 @@ public:
 		canSpawn = true;
 
 	}
-	void Start(Vector2D spawnPosition, int speed, int size) {
+	void Start(Vector2D spawnPosition,int spawnRatio, int speed, int size) {
 		this->spawnPosition = spawnPosition;
+		this->spawnRatio = spawnRatio;
 		this->speed = speed;
 		this->size = size;
 		canSpawn = true;
@@ -40,14 +41,23 @@ public:
 	}
 	void SpawnEnemy() {
 		if (canSpawn) {
-			Enemy *aux = new Enemy(new Vector2D(spawnPosition.x, spawnPosition.y), speed, size, "Enemy");
-			enemys.push_back(aux);
+			int r = rand() % 3;
+			cout<<r << endl;
+			Enemy *aux;
+			if(r == 0)
+				aux = new Enemy(new Vector2D(spawnPosition.x, spawnPosition.y), speed, size, "Enemy");
+			if (r == 1)
+				aux = new Enemy(new Vector2D(spawnPosition.x-70, spawnPosition.y), speed, size, "Enemy");
+			if (r == 2)
+				aux = new Enemy(new Vector2D(spawnPosition.x, spawnPosition.y+50), speed, size, "Enemy");
+
+			enemies.push_back(aux);
 		}
 
 	}
 
 	void SetTargetAll() {
-		for each (Enemy *a in enemys)
+		for each (Enemy *a in enemies)
 		{
 			Waypoint target = WMANAGER->GetNearWaypoint(*(a->GetPosition()));
 			a->SetTarget(target);
@@ -58,7 +68,7 @@ public:
 	}
 
 	void Draw() {
-		for each (Enemy *a in enemys)
+		for each (Enemy *a in enemies)
 		{
 			a->Draw();
 		}
@@ -67,11 +77,11 @@ public:
 
 	void Update() {
 		//SetTargetAll();
-		if (ofGetFrameNum()%100 == 0) {
+		if (ofGetFrameNum()%spawnRatio == 0 && ofGetFrameNum() != 0) {
 			SpawnEnemy();
 			
 		}
-		for each (Enemy *a in enemys)
+		for each (Enemy *a in enemies)
 		{
 			a->Update();
 		}
