@@ -32,6 +32,7 @@ public:
 		AddWaypoints();
 	}
 	void AddWaypoints() {
+		waypoints.push_back(Waypoint(Vector2D(0, 50), target, targetSize));
 		waypoints.push_back(Waypoint(Vector2D(100, 50), target, targetSize));
 		waypoints.push_back(Waypoint(Vector2D(200, 50), target, targetSize));
 		waypoints.push_back(Waypoint(Vector2D(300, 60), target, targetSize));
@@ -67,7 +68,7 @@ public:
 		cout << "-------------------------------------" << endl;
 	}
 
-	Waypoint GetNearWaypoint(Vector2D position) {
+	/*Waypoint GetNearWaypoint(Vector2D position) {
 		double minDist = 9999;
 		Waypoint target;
 		for each (Waypoint a in waypoints)
@@ -79,15 +80,15 @@ public:
 			}
 		}
 		return target;
-	}
+	}*/
 
-	/*Waypoint GetNearWaypoint(Vector2D position) {
+	Waypoint GetNearWaypoint(Vector2D position) {
 		int maxHeight = 9999;
 		Waypoint target;
 		for each (Waypoint a in waypoints)
 		{
 			double currentDist = MathUtils::GetDistance(position, a.GetPosition());
-			if (a.GetHeight() <= maxHeight && currentDist < 50)
+			if (a.GetHeight() <= maxHeight && currentDist < 120)
 			{
 				maxHeight = a.GetHeight();
 				target = a;
@@ -95,6 +96,6 @@ public:
 			}
 		}
 		return target;
-	}*/
+	}
 	
 };
