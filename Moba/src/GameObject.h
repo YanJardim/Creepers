@@ -2,7 +2,7 @@
 
 #include "ofMain.h"
 #include "Vector2D.h"
-#include "MathUtils.h"
+
 
 using namespace math;
 
@@ -39,10 +39,7 @@ public:
 
 	virtual void Start() = 0;
 	virtual void Update() = 0;
-	virtual void Draw() {
-		//ofDrawRectangle(position->x, position->y, size.x, size.y);
-		//graphics.draw();
-	}
+	virtual void Draw() = 0;
 
 
 

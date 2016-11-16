@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GameObject.h"
+#include "MathUtils.h"
 
 using namespace math;
 

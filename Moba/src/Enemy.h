@@ -97,15 +97,15 @@ public:
 		this->velocity = newValue;
 	}
 
-	bool CheckCollision() {
-		
-	}
+	
 
 	void UpdateTarget() {
 		Waypoint target = WMANAGER->GetNearWaypoint(*(GetPosition()));
 		SetTarget(target);
 		LookAt(target.GetPosition());
 	}
+
+	
 
 	
 };

@@ -7,7 +7,7 @@
 #include "WaypointManager.h"
 
 
-class EnemyManager {
+class EnemyManager{
 private:
 	vector<Enemy*> enemies;
 	Vector2D spawnPosition;
@@ -88,7 +88,33 @@ public:
 		//cout << ofGetFrameNum() << endl;
 	}
 
-	
+	bool CheckCollision(GameObject *other) {
+		int index = 0;
+		
+			for each (Enemy *a in enemies)
+			{
+				if (MathUtils::GetDistance(*(a->GetPosition()), *(other->GetPosition())) < 80) {
+					if (MathUtils::CheckCollision(a, other)) {
+						//cout << "Tocou" << endl;
+						enemies.erase(enemies.begin() + index);
+						return MathUtils::CheckCollision(a, other);
+					}
+			}
+			index++;
+		}
+		return false;
+	}
 
-	
+	void PrintAllEnemies() {
+		if (enemies.size() != 0) {
+			int index = 0;
+			cout << "------------------------------------" << endl;
+			for each (Enemy *a in enemies)
+			{
+				cout << index << ": " << *(a->GetPosition()) << endl;
+				index++;
+			}
+			cout << "------------------------------------" << endl;
+		}
+	}
 };

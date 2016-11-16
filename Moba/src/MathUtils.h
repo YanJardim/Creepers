@@ -2,6 +2,9 @@
 
 #include "ofMain.h"
 #include "Vector2D.h"
+#include "GameObject.h"
+
+//class GameObject;
 
 using namespace math;
 
@@ -38,5 +41,24 @@ public:
 	static void Alternate(bool &value) {
 		if (value) value = false;
 		else value = true;
+	}
+
+	static bool CheckCollision(GameObject *a, GameObject *b) {
+		Vector2D bMinBounds = Vector2D(b->GetGraphics().getBoundingBox().getMinX(), b->GetGraphics().getBoundingBox().getMinY());
+		Vector2D bMaxBounds = Vector2D(b->GetGraphics().getBoundingBox().getMaxX(), b->GetGraphics().getBoundingBox().getMaxY());
+
+
+		
+		for (int i = bMinBounds.y; i < bMaxBounds.y; i++) {
+			for (int j = bMinBounds.x; j < bMaxBounds.x; j++) {
+				//if((y > by1) && (y < by2) && (x > bx1) && (x < bx2)) {
+
+					if (a->GetGraphics().inside(j, i)) {
+						return true;
+					}
+				//}
+			}
+		}
+		return false;
 	}
 };

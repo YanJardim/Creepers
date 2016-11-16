@@ -1,4 +1,5 @@
 #include "ofApp.h"
+#include <future>
 
 //--------------------------------------------------------------
 void ofApp::setup(){
@@ -12,14 +13,18 @@ void ofApp::setup(){
 	EMANAGER->Start(Vector2D(map.GetEnemyBase().x - 0, map.GetEnemyBase().y + 0), 200, 100, 10);
 	
 	showWaypoints = false;
+
 	
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
+	//EMANAGER->PrintAllEnemies();
+	EMANAGER->CheckCollision(&player);
 	player.Update();
 	WMANAGER->Update();
 	EMANAGER->Update();
+
 
 }
 
@@ -63,11 +68,6 @@ void ofApp::mousePressed(int x, int y, int button){
 		player.Move(Vector2D(x, y));
 		
 	}
-
-	/*if (button == OF_MOUSE_BUTTON_3) {
-		Vector2D target = Vector2D(x, y);
-		EMANAGER->SetTargetAll(target);
-	}*/
 }
 
 //--------------------------------------------------------------
@@ -99,3 +99,4 @@ void ofApp::gotMessage(ofMessage msg){
 void ofApp::dragEvent(ofDragInfo dragInfo){ 
 
 }
+
