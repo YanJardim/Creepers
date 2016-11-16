@@ -48,9 +48,9 @@ public:
 	void SetTargetAll() {
 		for each (Enemy *a in enemys)
 		{
-			Vector2D target = WMANAGER->GetNearWaypoint(*(a->GetPosition()));
+			Waypoint target = WMANAGER->GetNearWaypoint(*(a->GetPosition()));
 			a->SetTarget(target);
-			a->LookAt(target);
+			a->LookAt(target.GetPosition());
 		}
 
 		
@@ -74,7 +74,7 @@ public:
 		{
 			a->Update();
 		}
-		cout << ofGetFrameNum() << endl;
+		//cout << ofGetFrameNum() << endl;
 	}
 
 	

@@ -1,16 +1,18 @@
 #pragma once
 
 #include "GameObject.h"
+#include "Waypoint.h"
 
 
 class Enemy : public GameObject{
 private:
 	int speed, angle;
-	Vector2D target, velocity;
+	Vector2D velocity;
 	ofPolyline vision;
 	ofPath visionPath, graphicsPath;
 	int visionSize;
 	bool canRotate;
+	Waypoint target;
 	
 	
 public:
@@ -27,8 +29,8 @@ public:
 		canRotate = false;
 		//target = *(position);
 
-		target = Vector2D(position->x, position->y);
-		velocity = normalize(MathUtils::GetDirection(*(position), target));
+		target.SetPosition(Vector2D(position->x, position->y));
+		velocity = normalize(MathUtils::GetDirection(*(position), target.GetPosition()));
 		
 	}
 
@@ -50,9 +52,9 @@ public:
 	}
 
 	void Follow() {
-		velocity = normalize(MathUtils::GetDirection(*(position), target));
+		velocity = normalize(MathUtils::GetDirection(*(position), target.GetPosition()));
 
-		if(MathUtils::GetDistance(*(position), target)> 2.f)
+		if(MathUtils::GetDistance(*(position), target.GetPosition())> 2.f)
 			*(position) += velocity * ofGetLastFrameTime() * speed;
 	}
 
@@ -101,9 +103,12 @@ public:
 		
 	}
 
-	void SetTarget(Vector2D target) {
+	void SetTarget(Waypoint target) {
 		this->target = target;
-		
+	}
+
+	Waypoint GetTarget() {
+		return this->target;
 	}
 
 	bool CheckCollision() {

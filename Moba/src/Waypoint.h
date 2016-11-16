@@ -10,9 +10,11 @@ class Waypoint {
 private:
 	Vector2D position, *target, targetSize;
 	int height;
-	bool block, debug;
+	bool block, debug, visited;
 
 public:
+
+	Waypoint() {};
 
 	Waypoint(Vector2D position, int height) {
 		this->position = position;
@@ -83,5 +85,13 @@ public:
 
 	void SetBlock(bool newValue) {
 		block = newValue;
+	}
+
+	bool IsVisited() {
+		return visited;
+	}
+
+	void SetVisited(bool newValue) {
+		visited = newValue;
 	}
 };

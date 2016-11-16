@@ -67,18 +67,34 @@ public:
 		cout << "-------------------------------------" << endl;
 	}
 
-	Vector2D GetNearWaypoint(Vector2D position) {
+	Waypoint GetNearWaypoint(Vector2D position) {
 		double minDist = 9999;
-		Vector2D target;
+		Waypoint target;
 		for each (Waypoint a in waypoints)
 		{
 			double currentDist = MathUtils::GetDistance(position, a.GetPosition());
 			if (minDist > currentDist) {
 				minDist = currentDist;
-				target = a.GetPosition();
+				target = a;
 			}
 		}
 		return target;
 	}
+
+	/*Waypoint GetNearWaypoint(Vector2D position) {
+		int maxHeight = 9999;
+		Waypoint target;
+		for each (Waypoint a in waypoints)
+		{
+			double currentDist = MathUtils::GetDistance(position, a.GetPosition());
+			if (a.GetHeight() <= maxHeight && currentDist < 50)
+			{
+				maxHeight = a.GetHeight();
+				target = a;
+
+			}
+		}
+		return target;
+	}*/
 	
 };
