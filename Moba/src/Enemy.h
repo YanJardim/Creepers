@@ -59,8 +59,10 @@ public:
 	void Follow() {
 		velocity = normalize(MathUtils::GetDirection(*(position), target.GetPosition()));
 
-		if(MathUtils::GetDistance(*(position), target.GetPosition())> 2.f)
-			*(position) += velocity * ofGetLastFrameTime() * speed;
+		if (MathUtils::GetDistance(*(position), target.GetPosition()) > 2.f && !target.GetBlock()) {
+				*(position) += velocity * ofGetLastFrameTime() * speed;
+		}
+		else cout << MathUtils::GetDistance(*(position), target.GetPosition()) << endl;
 	}
 
 	void Draw() override {

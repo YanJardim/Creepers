@@ -38,9 +38,25 @@ public:
 		return Vector2D(p2.x - p1.x, p2.y - p1.y);
 	}
 
-	static void Alternate(bool &value) {
-		if (value) value = false;
-		else value = true;
+	static bool Alternate(bool &value) {
+		if (value) { 
+			value = false; 
+			return false; 
+		}
+		else { 
+			value = true; 
+			return true; 
+		}
+	}
+	static bool Alternate2(bool value) {
+		if (value) {
+			value = false;
+			return false;
+		}
+		else {
+			value = true;
+			return true;
+		}
 	}
 
 	static bool CheckCollision(GameObject *a, GameObject *b) {

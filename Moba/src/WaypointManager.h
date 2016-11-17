@@ -92,6 +92,19 @@ public:
 		cout << "-------------------------------------" << endl;
 	}
 
+	void CheckMouseInside(Vector2D mouse) {
+		for ( int i = 0; i < waypoints.size(); i++)
+		{
+			double d = MathUtils::GetDistance(waypoints[i].GetPosition(), mouse);
+			int r = waypoints[i].GetSize() * waypoints[i].GetSize();
+			if (d < r) {
+				if (waypoints[i].GetBlock()) waypoints[i].SetBlock(false);
+				else waypoints[i].SetBlock(true);
+				
+			}
+		}
+	}
+
 	/*Waypoint GetNearWaypoint(Vector2D position) {
 		double minDist = 9999;
 		Waypoint target;

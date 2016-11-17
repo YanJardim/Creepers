@@ -73,7 +73,7 @@ public:
 			a->Draw();
 		}
 
-		ofDrawBitmapString("Minions Speed: " + ofToString(EMANAGER->GetSpeed()), 10, 10);
+		
 	
 	}
 

@@ -38,6 +38,8 @@ void ofApp::draw(){
 	EMANAGER->Draw();
 	
 	player.Draw();
+
+	ofDrawBitmapString("Minions Speed: " + ofToString(EMANAGER->GetSpeed()), 15, 20);
 }
 
 //--------------------------------------------------------------
@@ -71,9 +73,12 @@ void ofApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
-	if (button == OF_MOUSE_BUTTON_1) {
+	if (button == OF_MOUSE_BUTTON_3) {
 		player.Move(Vector2D(x, y));
 		
+	}
+	if (button == OF_MOUSE_BUTTON_2) {
+		WMANAGER->CheckMouseInside(Vector2D(x, y));
 	}
 }
 

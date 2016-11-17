@@ -9,8 +9,9 @@ using namespace math;
 class Waypoint {
 private:
 	Vector2D position, *target, targetSize;
-	int height;
+	int height, size;
 	bool block, debug, visited;
+	ofColor color, firstColor;
 
 public:
 
@@ -21,6 +22,9 @@ public:
 		this->height = height;
 		debug = true;
 		block = false;
+		size = 2;
+		color = ofColor().green;
+		firstColor = color;
 	}
 
 	Waypoint(Vector2D position, Vector2D *target) {
@@ -30,6 +34,9 @@ public:
 		this->height = UpdateHeight();
 		debug = true;
 		block = false;
+		size = 2;
+		color = ofColor().green;
+		firstColor = color;
 	}
 
 	Waypoint(Vector2D position, Vector2D *target, Vector2D targetSize) {
@@ -39,6 +46,9 @@ public:
 		this->height = UpdateHeight();
 		debug = true;
 		block = false;
+		size = 2;
+		color = ofColor().green;
+		firstColor = color;
 	}
 
 	void Update() {
@@ -49,11 +59,11 @@ public:
 	}
 	void Draw() {
 		if (debug) {
-			ofSetColor(ofColor().red);
-			ofDrawCircle(position.x, position.y, 2);
+			ofSetColor(color);
+			ofDrawCircle(position.x, position.y, size);
 			
-			ofSetColor(ofColor().green);
-			ofDrawCircle(target->x, target->y, 5);
+			/*ofSetColor(ofColor().green);
+			ofDrawCircle(target->x, target->y, 5);*/
 
 			ofSetColor(ofColor().white);
 
@@ -85,6 +95,9 @@ public:
 
 	void SetBlock(bool newValue) {
 		block = newValue;
+
+		if (newValue) color = ofColor().red;
+		else color = ofColor().green;
 	}
 
 	bool IsVisited() {
@@ -93,5 +106,21 @@ public:
 
 	void SetVisited(bool newValue) {
 		visited = newValue;
+	}
+
+	int GetSize() {
+		return size;
+	}
+
+	void SetColor(ofColor newValue) {
+		this->color = newValue;
+	}
+
+	ofColor GetColor() {
+		return color;
+	}
+
+	ofColor GetFirstColor() {
+		return firstColor;
 	}
 };
