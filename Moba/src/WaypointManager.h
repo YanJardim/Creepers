@@ -134,5 +134,9 @@ public:
 		}
 		return target;
 	}
+
+	void Clean() {
+		delete target;
+	}
 	
 };

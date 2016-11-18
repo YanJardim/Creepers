@@ -5,6 +5,8 @@
 
 #include "Enemy.h"
 #include "WaypointManager.h"
+#include <memory>
+#include <algorithm>
 
 
 class EnemyManager{
@@ -96,15 +98,30 @@ public:
 			for each (Enemy *a in enemies)
 			{
 				if (MathUtils::GetDistance(*(a->GetPosition()), *(other->GetPosition())) < 80) {
-					if (MathUtils::CheckCollision(a, other)) {
-						//cout << "Tocou" << endl;
-						enemies.erase(enemies.begin() + index);
-						return MathUtils::CheckCollision(a, other);
+					bool col = MathUtils::CheckCollision(a, other);
+					if (col) {
+						if (other->CompareTag("Bullet") ){
+							enemies.erase(enemies.begin() + index);
+							delete a;
+						}
+
+						return col;
 					}
 			}
 			index++;
 		}
 		return false;
+	}
+
+	void CheckAlive() {
+		int index = 0;
+		for each (Enemy *a in enemies)
+		{
+			if(!a->IsAlive())
+				enemies.erase(enemies.begin() + index);
+
+			index++;
+		}
 	}
 
 	void PrintAllEnemies() {
@@ -130,5 +147,14 @@ public:
 
 	int GetSpeed() {
 		return speed;
+	}
+
+	struct Deleter
+	{
+		void operator()(Enemy* obj) { delete obj; }
+	};
+
+	void Clean() {
+		for_each(enemies.begin(), enemies.end(), Deleter());
 	}
 };

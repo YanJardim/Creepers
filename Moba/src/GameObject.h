@@ -13,6 +13,8 @@ protected:
 
 	ofPolyline graphics;
 	ofImage image;
+
+	bool alive;
 public:
 
 	GameObject() {};
@@ -21,6 +23,7 @@ public:
 		this->position = position;
 		this->size = size;
 		this->tag = "Untagged";
+		alive = true;
 
 	}
 
@@ -28,16 +31,17 @@ public:
 		this->position = position;
 		this->size = size;
 		this->tag = tag;
+		alive = true;
 
 	}
 	GameObject(Vector2D *position, ofImage imagem, string tag) {
 		this->position = position;
 		this->image = image;
 		this->tag = tag;
-
+		alive = true;
 	}
 	~GameObject() {
-		//free(position);
+		//delete(position);
 	}
 
 	virtual void Start() = 0;
@@ -188,6 +192,25 @@ public:
 			return true;
 
 		return false;
+	}
+
+	bool CompareTag(string tag) {
+		if (tag == this->tag)
+			return true;
+
+		return false;
+	}
+
+	bool IsAlive() {
+		return alive;
+	}
+
+	void SetAlive(bool newValue) {
+		alive = newValue;
+	}
+
+	void Clean(){
+		delete position;
 	}
 	
 

@@ -20,11 +20,17 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::update(){
 	//EMANAGER->PrintAllEnemies();
-	EMANAGER->CheckCollision(&player);
 	player.Update();
 	player.UpdateBullets();
 	WMANAGER->Update();
 	EMANAGER->Update();
+
+	EMANAGER->CheckCollision(&player);
+
+	for each (Bullet* a in player.GetBullets())
+	{
+		EMANAGER->CheckCollision(a);
+	}
 
 
 }
@@ -56,6 +62,13 @@ void ofApp::keyPressed(int key){
 	}
 	if (key == '-') {
 		EMANAGER->ChangeSpeed(EMANAGER->GetSpeed() - 10);
+	}
+
+	if (key == OF_KEY_ESC) {
+		EMANAGER->Clean();
+		WMANAGER->Clean();
+		player.Clean();
+		map.Clean();
 	}
 }
 

@@ -74,6 +74,7 @@ public:
 		a->Start();
 		bullets.push_back(a);
 		//cout << "A" << endl;
+		PrintBullets();
 		return a;
 	}
 
@@ -81,16 +82,33 @@ public:
 		for each (Bullet *a in bullets)
 		{
 			a->Draw();
-
+			
 		}
 	}
 
 	void UpdateBullets() {
+		int index = 0;
 		for each (Bullet *a in bullets)
 		{
 			a->Update();
-			//cout << *(a->GetPosition()) << endl;
+			if (MathUtils::IsOutsideScreen(*(a->GetPosition()))) {
+				bullets.erase(bullets.begin() + index);
+				delete a;
+				return;
+			}
+			index++;
 		}
+
+		
+	}
+
+	void PrintBullets() {
+		cout << "-------------------------------------" << endl;
+		for (int i = 0; i < bullets.size(); i++)
+		{
+			cout << i << ": " << *(bullets[i]->GetPosition())<< endl;
+		}
+		cout << "-------------------------------------" << endl;
 	}
 
 	void Move(Vector2D mouse) {
@@ -107,6 +125,9 @@ public:
 		return this->size;
 	}
 
+	vector<Bullet*> GetBullets() {
+		return bullets;
+	}
 	
 	
 };

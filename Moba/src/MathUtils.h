@@ -68,7 +68,11 @@ public:
 		for (int i = bMinBounds.y; i < bMaxBounds.y; i++) {
 			for (int j = bMinBounds.x; j < bMaxBounds.x; j++) {
 				//if((y > by1) && (y < by2) && (x > bx1) && (x < bx2)) {
-				if ((a->GetPosition()->x > bMinBounds.x) && (a->GetPosition()->y < bMaxBounds.y) && (a->GetPosition()->x > bMinBounds.x) && (a->GetPosition()->x < bMaxBounds.x)) {
+				if ((a->GetPosition()->y + a->GetCenter().y > bMinBounds.y) && 
+					(a->GetPosition()->y - a->GetCenter().y < bMaxBounds.y) &&
+					(a->GetPosition()->x + a->GetCenter().x > bMinBounds.x) &&
+					(a->GetPosition()->x - a->GetCenter().x < bMaxBounds.x)) {
+
 					if (a->GetGraphics().inside(j, i)) {
 						return true;
 					}

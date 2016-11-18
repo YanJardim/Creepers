@@ -36,6 +36,7 @@ public:
 		target.SetPosition(Vector2D(0.f, position->y));
 		velocity = normalize(MathUtils::GetDirection(*(position), target.GetPosition()));
 		
+		
 	}
 
 
