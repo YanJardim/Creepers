@@ -73,7 +73,7 @@ public:
 		Bullet *a = new Bullet(position->x, position->y, 700, new Vector2D(mouse), Vector2D(8, 2), "Bullet");
 		a->Start();
 		bullets.push_back(a);
-
+		//cout << "A" << endl;
 		return a;
 	}
 
