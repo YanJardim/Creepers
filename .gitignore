@@ -52,7 +52,7 @@ xcuserdata/
 *.aps
 *.opendb
 *.db
-*.snl
+*.sln
 *.db
 *.opendb
 *.vcxproj
