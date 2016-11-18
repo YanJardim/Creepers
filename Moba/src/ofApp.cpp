@@ -22,6 +22,7 @@ void ofApp::update(){
 	//EMANAGER->PrintAllEnemies();
 	EMANAGER->CheckCollision(&player);
 	player.Update();
+	player.UpdateBullets();
 	WMANAGER->Update();
 	EMANAGER->Update();
 
@@ -36,8 +37,10 @@ void ofApp::draw(){
 		WMANAGER->DrawWaypoints();
 
 	EMANAGER->Draw();
-	
+
+	player.DrawBullets();
 	player.Draw();
+	
 
 	ofDrawBitmapString("Minions Speed: " + ofToString(EMANAGER->GetSpeed()), 15, 20);
 }
@@ -79,6 +82,10 @@ void ofApp::mousePressed(int x, int y, int button){
 	}
 	if (button == OF_MOUSE_BUTTON_2) {
 		WMANAGER->CheckMouseInside(Vector2D(x, y));
+	}
+
+	if (button == OF_MOUSE_BUTTON_1) {
+		player.Fire(Vector2D(x, y));
 	}
 }
 

@@ -52,6 +52,14 @@ xcuserdata/
 *.aps
 *.opendb
 *.db
+*.sln
+*.db
+*.opendb
+*.vcxproj
+*.filters
+*.user
+*.rc
+*.make
 ipch/
 
 # Eclipse
@@ -102,3 +110,5 @@ Desktop.ini
 /Moba/bin/fmodexL.dll
 /Moba/bin/fmodex.dll
 /Moba/bin/assimp.dll
+
+!/Moba/LibMath/*

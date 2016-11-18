@@ -9,7 +9,7 @@ using namespace math;
  class GameObject {
 protected:
 	string tag;
-	Vector2D *position, size;
+	Vector2D *position = nullptr, size;
 
 	ofPolyline graphics;
 	ofImage image;
@@ -35,6 +35,9 @@ public:
 		this->image = image;
 		this->tag = tag;
 
+	}
+	~GameObject() {
+		//free(position);
 	}
 
 	virtual void Start() = 0;
@@ -71,6 +74,18 @@ public:
 
 		graphics.close();
 	}
+	void CreateSquare(int widht, int height) {
+		this->size = Vector2D(widht, height);
+		graphics.clear();
+
+		this->graphics.addVertex(position->x + size.x, position->y + size.y);
+		this->graphics.addVertex(position->x + size.x, position->y - size.y);
+		this->graphics.addVertex(position->x - size.x, position->y - size.y);
+		this->graphics.addVertex(position->x - size.x, position->y + size.y);
+
+		graphics.close();
+	}
+
 
 	void CreateSquare(ofPolyline &poly, int size) {
 		this->size = Vector2D(size, size);

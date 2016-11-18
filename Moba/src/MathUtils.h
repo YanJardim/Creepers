@@ -77,4 +77,21 @@ public:
 		}
 		return false;
 	}
+
+	static bool IsOutsideScreen(Vector2D point) {
+		Vector2D w = Vector2D(ofGetWindowSize().x, ofGetWindowSize().y);
+		if (point.x < 0 || point.x > w.x || point.y < 0 || point.y > w.y)
+			return true;
+
+		return false;
+	}
+
+	static bool IsOutsideScreen(Vector2D point, int offSet) {
+		Vector2D w = Vector2D(ofGetWindowSize().x, ofGetWindowSize().y);
+		if (point.x - offSet < 0 || point.x + offSet > w.x || point.y - offSet < 0 || point.y + offSet > w.y)
+			return true;
+
+		return false;
+	}
+
 };

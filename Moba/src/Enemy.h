@@ -62,7 +62,7 @@ public:
 		if (MathUtils::GetDistance(*(position), target.GetPosition()) > 2.f && !target.GetBlock()) {
 				*(position) += velocity * ofGetLastFrameTime() * speed;
 		}
-		else cout << MathUtils::GetDistance(*(position), target.GetPosition()) << endl;
+		//else cout << MathUtils::GetDistance(*(position), target.GetPosition()) << endl;
 	}
 
 	void Draw() override {

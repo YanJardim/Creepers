@@ -2,6 +2,7 @@
 
 #include "GameObject.h"
 #include "MathUtils.h"
+#include "Bullet.h"
 
 using namespace math;
 
@@ -12,6 +13,8 @@ private:
 	int speed;
 	bool target;
 	ofPath path;
+
+	vector<Bullet*> bullets;
 
 public:
 	Player() {
@@ -45,10 +48,12 @@ public:
 		//ofDrawRectangle(graphics);
 		graphics.draw();
 		path.draw();
+		
+	
 
 	}
 	void Update() {
-
+		
 		if (mouse.size() > 0.1) {
 			auto direction = normalize(mouse - *(position));
 			velocity = direction * speed;
@@ -63,6 +68,31 @@ public:
 		CreateSquare(size.x);
 		FillPolyClear(path, graphics, ofColor().darkGray);
 	}
+
+	Bullet* Fire(Vector2D mouse) {
+		Bullet *a = new Bullet(position->x, position->y, 700, new Vector2D(mouse), Vector2D(8, 2), "Bullet");
+		a->Start();
+		bullets.push_back(a);
+
+		return a;
+	}
+
+	void DrawBullets() {
+		for each (Bullet *a in bullets)
+		{
+			a->Draw();
+
+		}
+	}
+
+	void UpdateBullets() {
+		for each (Bullet *a in bullets)
+		{
+			a->Update();
+			//cout << *(a->GetPosition()) << endl;
+		}
+	}
+
 	void Move(Vector2D mouse) {
 		this->mouse = mouse;
 		
