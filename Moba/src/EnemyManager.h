@@ -17,7 +17,7 @@ private:
 	bool canSpawn;
 	int timer;
 
-	int speed = 100, size = 20;
+	int speed = 100, size = 40;
 
 public:
 	static EnemyManager *instance;

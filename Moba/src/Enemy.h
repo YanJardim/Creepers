@@ -12,7 +12,7 @@ class Enemy : public GameObject{
 private:
 	int speed, angle;
 	Vector2D velocity;
-	ofPolyline vision;
+	ofPolyline vision, box;
 	ofPath visionPath, graphicsPath;
 	int visionSize;
 	bool canRotate;
@@ -49,6 +49,8 @@ public:
 		Follow();
 		CreateSquare(graphics, size.x);
 		CreateTriangle(vision,size.x);
+		FillPolyClear(visionPath, vision, ofColor().red);
+		FillPolyClear(graphicsPath, graphics, ofColor().black);
 		
 	}
 
@@ -78,14 +80,26 @@ public:
 			ofPushMatrix();
 
 				ofTranslate(-position->x,-position->y);
-				graphics.draw();
-				vision.draw();
+				graphicsPath.draw();
+				visionPath.draw();
 
 			ofPopMatrix();
 
 		ofPopMatrix();
 		
+		DrawCollider();
 		
+	}
+
+	void DrawCollider() {
+		Vector2D minBounds = Vector2D(GetGraphics().getBoundingBox().getMinX(), GetGraphics().getBoundingBox().getMinY());
+		Vector2D maxBounds = Vector2D(GetGraphics().getBoundingBox().getMaxX(), GetGraphics().getBoundingBox().getMaxY());
+		CreateSquare(box, maxBounds.x - minBounds.x, maxBounds.y - minBounds.y);
+		ofSetColor(ofColor().green);
+
+		box.draw();
+
+		ofSetColor(ofColor().white);
 	}
 
 	void SetTarget(Waypoint target) {

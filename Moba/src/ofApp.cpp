@@ -7,10 +7,10 @@ void ofApp::setup(){
 	ofSetWindowPosition(ofGetScreenWidth()/2 - ofGetWindowWidth()/2, ofGetScreenHeight() / 2 - ofGetWindowHeight()/2);
 
 	map = Map(0, 0, ofImage("Images/map.png"), "Map");
-	player = Player(new Vector2D(map.GetBase()), 200, 20, "Player");
+	player = Player(new Vector2D(map.GetBase()), 200, 1000, 20, "Player");
 	
 	WMANAGER->Start(new Vector2D(map.GetBase()), map);
-	EMANAGER->Start(Vector2D(map.GetEnemyBase().x - 0, map.GetEnemyBase().y + 0), 200, 100, 10);
+	EMANAGER->Start(Vector2D(map.GetEnemyBase().x, map.GetEnemyBase().y), 200, 100, 30);
 	
 	showWaypoints = false;
 

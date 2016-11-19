@@ -10,7 +10,7 @@ class Player : public GameObject{
 
 private:
 	Vector2D direction, velocity, mouse;
-	int speed;
+	int speed, bulletSpeed;
 	bool target;
 	ofPath path;
 
@@ -20,20 +20,21 @@ public:
 	Player() {
 		this->target = false;
 	}
-	Player(int x, int y, int speed, int size, string tag) : GameObject(new Vector2D(x, y), Vector2D(size, size), tag) {
+	Player(int x, int y, int speed, int bulletSpeed,int size, string tag) : GameObject(new Vector2D(x, y), Vector2D(size, size), tag) {
 		this->speed = speed;
 		this->size = Vector2D(size, size);
 		this->target = false;
-		//this->graphics = ofRectangle(x, y, size.x, size.y);
+		this->bulletSpeed = bulletSpeed;
 		
 		CreateSquare(size);
 		FillPoly(path, graphics, ofColor().darkGray);
 		this->velocity = Vector2D(0, 0);
 	}
-	Player(Vector2D *position, int speed, int size, string tag) : GameObject(position, Vector2D(size, size), tag){
+	Player(Vector2D *position, int speed, int bulletSpeed, int size, string tag) : GameObject(position, Vector2D(size, size), tag){
 		this->speed = speed;
 		this->target = false;
-		//this->graphics = ofRectangle(position->x, position->y, size.x, size.y);
+		this->bulletSpeed = bulletSpeed;
+		
 		CreateSquare(size);
 		FillPoly(path, graphics, ofColor().darkGray);
 		this->velocity = Vector2D(0, 0);
@@ -70,7 +71,7 @@ public:
 	}
 
 	Bullet* Fire(Vector2D mouse) {
-		Bullet *a = new Bullet(position->x, position->y, 700, new Vector2D(mouse), Vector2D(8, 2), "Bullet");
+		Bullet *a = new Bullet(position->x, position->y, bulletSpeed, new Vector2D(mouse), Vector2D(8, 2), "Bullet");
 		a->Start();
 		bullets.push_back(a);
 		//cout << "A" << endl;

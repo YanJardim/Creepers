@@ -103,6 +103,18 @@ public:
 		poly.close();
 	}
 
+	void CreateSquare(ofPolyline &poly, int width, int height) {
+		//this->size = Vector2D(width, height);
+		poly.clear();
+
+		poly.addVertex(position->x + size.x, position->y + size.y);
+		poly.addVertex(position->x + size.x, position->y - size.y);
+		poly.addVertex(position->x - size.x, position->y - size.y);
+		poly.addVertex(position->x - size.x, position->y + size.y);
+
+		poly.close();
+	}
+
 	void CreateRotateSquare(ofPolyline &poly, int size) {
 		this->size = Vector2D(size, size);
 		poly.clear();
