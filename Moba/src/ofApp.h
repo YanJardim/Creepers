@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "EnemyManager.h"
 #include "Map.h"
+#include "Text.h"
 
 
 class ofApp : public ofBaseApp{
@@ -31,6 +32,12 @@ class ofApp : public ofBaseApp{
 
 		bool showWaypoints;
 
-		 
+		Text enemySpeedText;
+		string enemyTextString;
+
+		Text enemySpawnTimeText;
+		string enemySpawnTimeString;
+
+
 		
 };

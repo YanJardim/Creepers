@@ -9,12 +9,14 @@ using namespace math;
 class Player : public GameObject{
 
 private:
+	vector<Bullet*> bullets;
+
 	Vector2D direction, velocity, mouse;
-	int speed, bulletSpeed;
-	bool target;
 	ofPath path;
 
-	vector<Bullet*> bullets;
+	int speed, bulletSpeed;
+	bool target;
+		
 
 public:
 	Player() {
@@ -46,7 +48,7 @@ public:
 	}
 
 	void Draw() {
-		//ofDrawRectangle(graphics);
+	
 		graphics.draw();
 		path.draw();
 		
@@ -58,23 +60,24 @@ public:
 		if (mouse.size() > 0.1) {
 			auto direction = normalize(mouse - *(position));
 			velocity = direction * speed;
-			//mouse = Vector2D();
+		
 		}
 		double d = MathUtils::GetDistance(*(position), mouse);
-		//cout << d << endl;
+
 		if(d > 2)
 			*(position) += velocity * ofGetLastFrameTime();
 
-		//graphics = ofRectangle(position->x, position->y, size.x, size.y);
+
 		CreateSquare(size.x);
 		FillPolyClear(path, graphics, ofColor().darkGray);
 	}
 
 	Bullet* Fire(Vector2D mouse) {
-		Bullet *a = new Bullet(position->x, position->y, bulletSpeed, new Vector2D(mouse), Vector2D(8, 2), "Bullet");
+		Bullet *a = new Bullet(position->x, position->y, bulletSpeed, new Vector2D(mouse), Vector2D(8, 2), "Bullet", bullets.size());
 		a->Start();
 		bullets.push_back(a);
-		//cout << "A" << endl;
+		cout << a->GetIndex() << endl;
+
 		PrintBullets();
 		return a;
 	}
@@ -94,6 +97,7 @@ public:
 			a->Update();
 			if (MathUtils::IsOutsideScreen(*(a->GetPosition()))) {
 				bullets.erase(bullets.begin() + index);
+				UpdateIDs();
 				delete a;
 				return;
 			}
@@ -110,6 +114,13 @@ public:
 			cout << i << ": " << *(bullets[i]->GetPosition())<< endl;
 		}
 		cout << "-------------------------------------" << endl;
+	}
+
+	void RemoveBullet(int index) {
+		
+		bullets.erase(bullets.begin() + index);
+		UpdateIDs();
+		
 	}
 
 	void Move(Vector2D mouse) {
@@ -129,6 +140,15 @@ public:
 	vector<Bullet*> GetBullets() {
 		return bullets;
 	}
+
+	void UpdateIDs() {
+		for(int i = 0; i < bullets.size(); i++)
+		{
+			bullets[i]->SetIndex(i);
+		}
+	}
+
+	
 	
 	
 };

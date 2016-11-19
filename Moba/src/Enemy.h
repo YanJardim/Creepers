@@ -10,14 +10,15 @@
 
 class Enemy : public GameObject{
 private:
-	int speed, angle;
+	Waypoint target;
 	Vector2D velocity;
+
 	ofPolyline vision, box;
 	ofPath visionPath, graphicsPath;
-	int visionSize;
+
+	int speed, angle, index, visionSize;
 	bool canRotate;
-	Waypoint target;
-	
+
 	
 public:
 	Enemy() {}
@@ -49,8 +50,8 @@ public:
 		Follow();
 		CreateSquare(graphics, size.x);
 		CreateTriangle(vision,size.x);
-		FillPolyClear(visionPath, vision, ofColor().red);
-		FillPolyClear(graphicsPath, graphics, ofColor().black);
+		FillPolyClear(visionPath, vision, ofColor().darkGray);
+		FillPolyClear(graphicsPath, graphics, ofColor().red);
 		
 	}
 
@@ -82,12 +83,13 @@ public:
 				ofTranslate(-position->x,-position->y);
 				graphicsPath.draw();
 				visionPath.draw();
+				//DrawCollider();
 
 			ofPopMatrix();
 
 		ofPopMatrix();
 		
-		DrawCollider();
+		
 		
 	}
 
@@ -129,7 +131,12 @@ public:
 		return speed;
 	}
 
-	
+	int GetIndex() {
+		return index;
+	}
+	void SetIndex(int newValue) {
+		this->index = newValue;
+	}
 
 	
 };

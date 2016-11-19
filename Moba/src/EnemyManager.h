@@ -15,7 +15,9 @@ private:
 	Vector2D spawnPosition;
 	int spawnRatio;
 	bool canSpawn;
-	int timer;
+	float timer;
+
+	Player *player;
 
 	int speed = 100, size = 40;
 
@@ -32,13 +34,16 @@ public:
 		canSpawn = true;
 
 	}
-	void Start(Vector2D spawnPosition,int spawnRatio, int speed, int size) {
+	void Start(Vector2D spawnPosition,int spawnRatio, int speed, int size, Player *player) {
 		this->spawnPosition = spawnPosition;
 		this->spawnRatio = spawnRatio;
+	
 		this->speed = speed;
 		this->size = size;
 		canSpawn = true;
 		timer = 0;
+
+		this->player = player;
 	
 	}
 	void SpawnEnemy() {
@@ -80,10 +85,11 @@ public:
 	}
 
 	void Update() {
+		//cout << ofGetElapsedTimeMillis() << endl;
 		//SetTargetAll();
-		if (ofGetFrameNum()%spawnRatio == 0 && ofGetFrameNum() != 0) {
+		if (ofGetElapsedTimeMillis() > timer && ofGetFrameNum() != 0) {
 			SpawnEnemy();
-			
+			timer += spawnRatio;
 		}
 		for each (Enemy *a in enemies)
 		{
@@ -102,10 +108,17 @@ public:
 					if (col) {
 						if (other->CompareTag("Bullet") ){
 							enemies.erase(enemies.begin() + index);
-							delete a;
+							
+							auto_ptr<GameObject> b = auto_ptr<GameObject>(other);
+							if (Bullet* c = dynamic_cast<Bullet*>(b.get())) {
+								player->RemoveBullet(c->GetIndex());
+								//delete other;
+							}
+
+							return col;
 						}
 
-						return col;
+						
 					}
 			}
 			index++;
@@ -148,6 +161,15 @@ public:
 	int GetSpeed() {
 		return speed;
 	}
+
+	int GetSpawnRatio() {
+		return spawnRatio;
+	}
+
+	void SetSpawnRatio(int newValue) {
+		this->spawnRatio = newValue;
+	}
+
 
 	struct Deleter
 	{

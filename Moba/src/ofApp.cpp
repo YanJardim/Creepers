@@ -10,9 +10,16 @@ void ofApp::setup(){
 	player = Player(new Vector2D(map.GetBase()), 200, 1000, 20, "Player");
 	
 	WMANAGER->Start(new Vector2D(map.GetBase()), map);
-	EMANAGER->Start(Vector2D(map.GetEnemyBase().x, map.GetEnemyBase().y), 200, 100, 30);
+	EMANAGER->Start(Vector2D(map.GetEnemyBase().x, map.GetEnemyBase().y), 2000, 100, 15, &player);
 	
 	showWaypoints = false;
+	
+
+	enemyTextString = "Minions Speed: " + ofToString(EMANAGER->GetSpeed());
+	enemySpeedText = Text(enemyTextString, "Fonts/bebas.ttf", CENTER, ofColor().white, ofGetWindowWidth()/2, 30, 12, "UI");
+
+	enemySpawnTimeString = "Spawn  Ratio: " + ofToString(EMANAGER->GetSpawnRatio());
+	enemySpawnTimeText = Text(enemyTextString, "Fonts/bebas.ttf", CENTER, ofColor().white, ofGetWindowWidth() / 2 - 140, 30, 12, "UI");
 
 	
 }
@@ -47,8 +54,17 @@ void ofApp::draw(){
 	player.DrawBullets();
 	player.Draw();
 	
+	enemyTextString = "Minions Speed: " + ofToString(EMANAGER->GetSpeed());
+	enemySpawnTimeString = "Spawn Ratio: " + ofToString((float)EMANAGER->GetSpawnRatio() / 1000) + "s";
 
-	ofDrawBitmapString("Minions Speed: " + ofToString(EMANAGER->GetSpeed()), 15, 20);
+	if(ofGetFrameNum() % 50 == 0)
+		enemySpeedText.SetColor(ofColor(ofRandom(255), ofRandom(255), ofRandom(255)));
+
+	enemySpawnTimeText.UpdateText(enemySpawnTimeString);
+	enemySpawnTimeText.Draw();
+
+	enemySpeedText.UpdateText(enemyTextString);
+	enemySpeedText.Draw();
 }
 
 //--------------------------------------------------------------
@@ -70,6 +86,15 @@ void ofApp::keyPressed(int key){
 		player.Clean();
 		map.Clean();
 	}
+
+	if (key == 'a') {
+		EMANAGER->SetSpawnRatio(EMANAGER->GetSpawnRatio() - 100);
+	}
+
+	if (key == 's') {
+		EMANAGER->SetSpawnRatio(EMANAGER->GetSpawnRatio() + 100);
+	}
+
 }
 
 //--------------------------------------------------------------

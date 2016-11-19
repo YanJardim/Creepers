@@ -6,7 +6,7 @@
 
 class Bullet : public GameObject{
 private:
-	int angle, speed;
+	int angle, speed, index;
 	Vector2D *target = nullptr, velocity;
 
 public:
@@ -14,9 +14,10 @@ public:
 
 	Bullet() {};
 
-	Bullet(int x, int y, int speed, Vector2D *target, Vector2D size, string tag) : GameObject(new Vector2D(x, y), size, tag) {
+	Bullet(int x, int y, int speed, Vector2D *target, Vector2D size, string tag, int index) : GameObject(new Vector2D(x, y), size, tag) {
 		this->speed = speed;
 		this->target = target;
+		this->index = index;
 
 	}
 
@@ -64,6 +65,13 @@ public:
 
 	Vector2D *GetTarget() {
 		return target;
+	}
+
+	int GetIndex() {
+		return index;
+	}
+	void SetIndex(int newValue) {
+		this->index = newValue;
 	}
 
 
