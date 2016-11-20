@@ -31,7 +31,7 @@ public:
 
 	}
 	void Start(Player *player) {
-		state = PAUSE;
+		state = MENU;
 		this->player = player;
 	}
 
@@ -50,8 +50,10 @@ public:
 	}
 
 	void AlternatePause() {
-		if (state == PAUSE)
+		if (state == GAME)
+			state = PAUSE;
+		else if (state == PAUSE)
 			state = GAME;
-		else state = PAUSE;
+		
 	}
 };

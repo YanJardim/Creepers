@@ -3,6 +3,8 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+	ofSetEscapeQuitsApp(false);
+
 	ofSetWindowTitle("Creepers");
 	ofSetWindowPosition(ofGetScreenWidth()/2 - ofGetWindowWidth()/2, ofGetScreenHeight() / 2 - ofGetWindowHeight()/2);
 
@@ -15,14 +17,7 @@ void ofApp::setup(){
 	
 	showWaypoints = false;
 	
-
-	enemyTextString = "Minions Speed: " + ofToString(EMANAGER->GetSpeed());
-	enemySpeedText = Text(enemyTextString, "Fonts/bebas.ttf", CENTER, ofColor().white, ofGetWindowWidth()/2, 30, 12, "UI");
-
-	enemySpawnTimeString = "Spawn  Ratio: " + ofToString(EMANAGER->GetSpawnRatio());
-	enemySpawnTimeText = Text(enemyTextString, "Fonts/bebas.ttf", CENTER, ofColor().white, ofGetWindowWidth() / 2 - 140, 30, 12, "UI");
-
-	
+	SetupFonts();
 }
 
 //--------------------------------------------------------------
@@ -60,14 +55,21 @@ void ofApp::draw(){
 		enemyTextString = "Minions Speed: " + ofToString(EMANAGER->GetSpeed());
 		enemySpawnTimeString = "Spawn Ratio: " + ofToString((float)EMANAGER->GetSpawnRatio() / 1000) + "s";
 
-		if (ofGetFrameNum() % 50 == 0)
-			enemySpeedText.SetColor(ofColor(ofRandom(255), ofRandom(255), ofRandom(255)));
 
 		enemySpawnTimeText.UpdateText(enemySpawnTimeString);
 		enemySpawnTimeText.Draw();
 
 		enemySpeedText.UpdateText(enemyTextString);
 		enemySpeedText.Draw();
+	}
+	if (GMANAGER->CompareState(PAUSE)) {
+		if (ofGetFrameNum() % 30 == 0)
+			pauseText.SetColor(RandomColor());
+		pauseText.Draw();
+	}
+	else if (GMANAGER->CompareState(MENU)) {
+		menuText.Draw();
+		menuLogo.Draw();
 	}
 }
 
@@ -85,12 +87,7 @@ void ofApp::keyPressed(int key){
 			EMANAGER->ChangeSpeed(EMANAGER->GetSpeed() - 10);
 		}
 
-		if (key == OF_KEY_ESC) {
-			EMANAGER->Clean();
-			WMANAGER->Clean();
-			player.Clean();
-			map.Clean();
-		}
+		
 
 		if (key == 'a') {
 			EMANAGER->SetSpawnRatio(EMANAGER->GetSpawnRatio() - 100);
@@ -104,6 +101,17 @@ void ofApp::keyPressed(int key){
 			ctrlPressed = true;
 		}
 	}
+	if (GMANAGER->CompareState(PAUSE) || GMANAGER->CompareState(GAME)) {
+		if (key == OF_KEY_ESC) {
+			GMANAGER->AlternatePause();
+		}
+	}
+	else if (GMANAGER->CompareState(MENU)) {
+		ofResetElapsedTimeCounter();
+		GMANAGER->ChangeState(GAME);
+	}
+
+	
 	
 
 }
@@ -176,5 +184,30 @@ void ofApp::gotMessage(ofMessage msg){
 //--------------------------------------------------------------
 void ofApp::dragEvent(ofDragInfo dragInfo){ 
 
+}
+
+void ofApp::SetupFonts() {
+	enemyTextString = "Minions Speed: " + ofToString(EMANAGER->GetSpeed());
+	enemySpeedText = Text(enemyTextString, "Fonts/bebas.ttf", CENTER, ofColor().white, 270, 90, 12, "UI");
+
+	enemySpawnTimeString = "Spawn  Ratio: " + ofToString(EMANAGER->GetSpawnRatio());
+	enemySpawnTimeText = Text(enemyTextString, "Fonts/bebas.ttf", CENTER, ofColor().white, 140, 90, 12, "UI");
+
+	menuText = Text("Press Any key to start!", "Fonts/Cornerstone.ttf", CENTER, ofColor().red, ofGetWindowWidth() / 2, ofGetWindowHeight() / 2, 30, "MenuUI");
+	menuLogo = Text("Creepers", "Fonts/bebas.ttf", CENTER, ofColor().black, ofGetWindowWidth() / 2, ofGetWindowHeight() / 2 - 200, 30, "MenuUI");
+
+	pauseText = Text("Paused!", "Fonts/Cornerstone.ttf", CENTER, ofColor().red, ofGetWindowWidth() / 2, ofGetWindowHeight() / 2, 30, "PauseUI");
+	
+}
+
+void ofApp::Clean() {
+	EMANAGER->Clean();
+	WMANAGER->Clean();
+	player.Clean();
+	map.Clean();
+}
+
+ofColor ofApp::RandomColor() {
+	return ofColor(ofRandom(255), ofRandom(255), ofRandom(255));
 }
 

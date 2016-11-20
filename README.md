@@ -8,7 +8,7 @@ Creepers is a OpenFrameworks game, based on MOBA genre.
 #### Commands
 
 |Key                |Key                                |
-|-------------------|-----------------------------------|
+|:-----------------:|-----------------------------------|
 |Left Button        |Shoot         
 |Right Button       |Move player
 |Middle Button      |Block waypoint if they are visible
@@ -18,6 +18,7 @@ Creepers is a OpenFrameworks game, based on MOBA genre.
 |-                  |Subtracts enemy speed
 |a                  |Adds enemy spawn time
 |s                  |Subtracts enemy spawn time
+|esc                |Pause
 
       
 

@@ -59,7 +59,7 @@ public:
 		graphics.draw();
 		path.draw();
 		
-		playerWaypoint.Draw();
+		//playerWaypoint.Draw();
 
 	}
 	void Update() {

@@ -30,6 +30,9 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 
+		void SetupFonts();
+		void Clean();
+		ofColor RandomColor();
 
 		Player player;
 		Map map;
@@ -41,6 +44,8 @@ class ofApp : public ofBaseApp{
 
 		Text enemySpawnTimeText;
 		string enemySpawnTimeString;
+
+		Text menuText, menuLogo, pauseText;
 
 
 		
