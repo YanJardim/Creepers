@@ -2,9 +2,11 @@
 #include "ofApp.h"
 #include "WaypointManager.h"
 #include "EnemyManager.h"
+#include "GameManager.h"
 
 WaypointManager *WaypointManager::instance = 0;
 EnemyManager *EnemyManager::instance = 0;
+GameManager *GameManager::instance = 0;
 
 //========================================================================
 int main( ){

@@ -11,6 +11,7 @@ void ofApp::setup(){
 	
 	WMANAGER->Start(new Vector2D(map.GetBase()), map);
 	EMANAGER->Start(Vector2D(map.GetEnemyBase().x, map.GetEnemyBase().y), 2000, 100, 15, &player);
+	GMANAGER->Start(&player);
 	
 	showWaypoints = false;
 	
@@ -26,87 +27,93 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
-	//EMANAGER->PrintAllEnemies();
-	player.Update();
-	player.UpdateBullets();
-	WMANAGER->Update();
-	EMANAGER->Update();
+	if (GMANAGER->CompareState(GAME)) {
+		//EMANAGER->PrintAllEnemies();
+		player.Update();
+		player.UpdateBullets();
+		WMANAGER->Update();
+		EMANAGER->Update();
 
-	EMANAGER->CheckCollision(&player);
+		EMANAGER->CheckCollision(&player);
 
-	for each (Bullet* a in player.GetBullets())
-	{
-		EMANAGER->CheckCollision(a);
+		for each (Bullet* a in player.GetBullets())
+		{
+			EMANAGER->CheckCollision(a);
+		}
 	}
-
 
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-	map.Draw();
+	if (GMANAGER->CompareState(GAME) || GMANAGER->CompareState(PAUSE)) {
+		map.Draw();
 
-	if(showWaypoints)
-		WMANAGER->DrawWaypoints();
+		if (showWaypoints)
+			WMANAGER->DrawWaypoints();
 
-	EMANAGER->Draw();
+		EMANAGER->Draw();
 
-	player.DrawBullets();
-	player.Draw();
-	
-	enemyTextString = "Minions Speed: " + ofToString(EMANAGER->GetSpeed());
-	enemySpawnTimeString = "Spawn Ratio: " + ofToString((float)EMANAGER->GetSpawnRatio() / 1000) + "s";
+		player.DrawBullets();
+		player.Draw();
 
-	if(ofGetFrameNum() % 50 == 0)
-		enemySpeedText.SetColor(ofColor(ofRandom(255), ofRandom(255), ofRandom(255)));
+		enemyTextString = "Minions Speed: " + ofToString(EMANAGER->GetSpeed());
+		enemySpawnTimeString = "Spawn Ratio: " + ofToString((float)EMANAGER->GetSpawnRatio() / 1000) + "s";
 
-	enemySpawnTimeText.UpdateText(enemySpawnTimeString);
-	enemySpawnTimeText.Draw();
+		if (ofGetFrameNum() % 50 == 0)
+			enemySpeedText.SetColor(ofColor(ofRandom(255), ofRandom(255), ofRandom(255)));
 
-	enemySpeedText.UpdateText(enemyTextString);
-	enemySpeedText.Draw();
+		enemySpawnTimeText.UpdateText(enemySpawnTimeString);
+		enemySpawnTimeText.Draw();
+
+		enemySpeedText.UpdateText(enemyTextString);
+		enemySpeedText.Draw();
+	}
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-	if (key == 'i') {
-		MathUtils::Alternate(showWaypoints);
-	}
+	if (GMANAGER->CompareState(GAME)) {
+		if (key == 'i') {
+			MathUtils::Alternate(showWaypoints);
+		}
 
-	if (key == '+') {
-		EMANAGER->ChangeSpeed(EMANAGER->GetSpeed() + 10);
-	}
-	if (key == '-') {
-		EMANAGER->ChangeSpeed(EMANAGER->GetSpeed() - 10);
-	}
+		if (key == '+') {
+			EMANAGER->ChangeSpeed(EMANAGER->GetSpeed() + 10);
+		}
+		if (key == '-') {
+			EMANAGER->ChangeSpeed(EMANAGER->GetSpeed() - 10);
+		}
 
-	if (key == OF_KEY_ESC) {
-		EMANAGER->Clean();
-		WMANAGER->Clean();
-		player.Clean();
-		map.Clean();
-	}
+		if (key == OF_KEY_ESC) {
+			EMANAGER->Clean();
+			WMANAGER->Clean();
+			player.Clean();
+			map.Clean();
+		}
 
-	if (key == 'a') {
-		EMANAGER->SetSpawnRatio(EMANAGER->GetSpawnRatio() - 100);
-	}
+		if (key == 'a') {
+			EMANAGER->SetSpawnRatio(EMANAGER->GetSpawnRatio() - 100);
+		}
 
-	if (key == 's') {
-		EMANAGER->SetSpawnRatio(EMANAGER->GetSpawnRatio() + 100);
-	}
+		if (key == 's') {
+			EMANAGER->SetSpawnRatio(EMANAGER->GetSpawnRatio() + 100);
+		}
 
-	if (key == OF_KEY_CONTROL) {
-		ctrlPressed = true;
+		if (key == OF_KEY_CONTROL) {
+			ctrlPressed = true;
+		}
 	}
-
 	
 
 }
 
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key){
-	if (key == OF_KEY_CONTROL) {
-		ctrlPressed = false;
+	if(GMANAGER->CompareState(GAME)) {
+		if (key == OF_KEY_CONTROL) {
+			ctrlPressed = false;
+		}
 	}
 }
 
@@ -122,21 +129,22 @@ void ofApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
-	if (button == OF_MOUSE_BUTTON_3) {
-		player.Move(Vector2D(x, y));
-		
-	}
-	if (button == OF_MOUSE_BUTTON_2) {
-		WMANAGER->CheckMouseInside(Vector2D(x, y));
-	}
+	if(GMANAGER->CompareState(GAME)) {
+		if (button == OF_MOUSE_BUTTON_3) {
+			player.Move(Vector2D(x, y));
 
-	if (button == OF_MOUSE_BUTTON_1 && ctrlPressed && showWaypoints) {
-		WMANAGER->CreateWaypoint(Vector2D(x, y));
-	}
-	else if (button == OF_MOUSE_BUTTON_1) {
-		player.Fire(Vector2D(x, y));
-	}
+		}
+		if (button == OF_MOUSE_BUTTON_2) {
+			WMANAGER->CheckMouseInside(Vector2D(x, y));
+		}
 
+		if (button == OF_MOUSE_BUTTON_1 && ctrlPressed && showWaypoints) {
+			WMANAGER->CreateWaypoint(Vector2D(x, y));
+		}
+		else if (button == OF_MOUSE_BUTTON_1) {
+			player.Fire(Vector2D(x, y));
+		}
+	}
 	
 }
 

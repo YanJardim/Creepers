@@ -1,10 +1,14 @@
 #pragma once
 
 #include "ofMain.h"
+
 #include "Player.h"
-#include "EnemyManager.h"
 #include "Map.h"
 #include "Text.h"
+
+#include "EnemyManager.h"
+#include "GameManager.h"
+
 
 
 class ofApp : public ofBaseApp{
