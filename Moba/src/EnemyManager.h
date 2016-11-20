@@ -7,6 +7,7 @@
 #include "WaypointManager.h"
 #include <memory>
 #include <algorithm>
+#include "GameManager.h"
 
 
 class EnemyManager{
@@ -116,8 +117,9 @@ public:
 							if (Bullet* c = dynamic_cast<Bullet*>(b.get())) {
 								player->RemoveBullet(c->GetIndex());
 								//delete other;
-							}
 
+							}
+							GMANAGER->AddScore(10);
 							return col;
 						}
 
@@ -126,6 +128,26 @@ public:
 				index++;
 			}
 			
+		}
+
+		if (other->CompareTag("Player")) {
+			int index = 0;
+			for each (Enemy *a in enemies)
+			{
+				if (MathUtils::GetDistance(*(a->GetPosition()), *(other->GetPosition())) < 80) {
+					bool col = MathUtils::CheckCollision(a, other);
+					if (col) {
+
+						GMANAGER->ChangeState(GAMEOVER);
+
+						return col;
+					}
+
+
+				}
+				index++;
+			}
+
 		}
 		return false;
 	}

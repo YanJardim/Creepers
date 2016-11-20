@@ -9,7 +9,7 @@ void ofApp::setup(){
 	ofSetWindowPosition(ofGetScreenWidth()/2 - ofGetWindowWidth()/2, ofGetScreenHeight() / 2 - ofGetWindowHeight()/2);
 
 	map = Map(0, 0, ofImage("Images/map.png"), "Map");
-	player = Player(new Vector2D(map.GetBase()), 400, 1000, 20, "Player");
+	player = Player(new Vector2D(map.GetBase()), 200, 1000, 20, "Player");
 	
 	WMANAGER->Start(new Vector2D(map.GetBase()), map);
 	EMANAGER->Start(Vector2D(map.GetEnemyBase().x, map.GetEnemyBase().y), 2000, 100, 15, &player);
@@ -54,23 +54,33 @@ void ofApp::draw(){
 
 		enemyTextString = "Minions Speed: " + ofToString(EMANAGER->GetSpeed());
 		enemySpawnTimeString = "Spawn Ratio: " + ofToString((float)EMANAGER->GetSpawnRatio() / 1000) + "s";
-
+		scoreString = "Score: " + ofToString(GMANAGER->GetScore());
 
 		enemySpawnTimeText.UpdateText(enemySpawnTimeString);
 		enemySpawnTimeText.Draw();
 
 		enemySpeedText.UpdateText(enemyTextString);
 		enemySpeedText.Draw();
+
+		scoreText.UpdateText(scoreString);
+		scoreText.Draw();
 	}
 	if (GMANAGER->CompareState(PAUSE)) {
 		if (ofGetFrameNum() % 30 == 0)
 			pauseText.SetColor(RandomColor());
+
 		pauseText.Draw();
 	}
 	else if (GMANAGER->CompareState(MENU)) {
 		menuText.Draw();
 		menuLogo.Draw();
 	}
+	else if (GMANAGER->CompareState(GAMEOVER)) {
+		scoreText = Text(scoreString, "Fonts/bebas.ttf", CENTER, ofColor().black, ofGetWindowWidth() / 2, ofGetWindowHeight() / 2 + 40, 16, "UI");
+		gameOverText.Draw();
+		scoreText.Draw();
+	}
+
 }
 
 //--------------------------------------------------------------
@@ -109,6 +119,10 @@ void ofApp::keyPressed(int key){
 	else if (GMANAGER->CompareState(MENU)) {
 		ofResetElapsedTimeCounter();
 		GMANAGER->ChangeState(GAME);
+	}
+
+	else if (GMANAGER->CompareState(GAMEOVER)) {
+		ofExit();
 	}
 
 	
@@ -188,16 +202,18 @@ void ofApp::dragEvent(ofDragInfo dragInfo){
 
 void ofApp::SetupFonts() {
 	enemyTextString = "Minions Speed: " + ofToString(EMANAGER->GetSpeed());
-	enemySpeedText = Text(enemyTextString, "Fonts/bebas.ttf", CENTER, ofColor().white, 270, 90, 12, "UI");
+	enemySpeedText = Text(enemyTextString, "Fonts/bebas.ttf", CENTER, ofColor().red, 280, 90, 12, "UI");
 
 	enemySpawnTimeString = "Spawn  Ratio: " + ofToString(EMANAGER->GetSpawnRatio());
 	enemySpawnTimeText = Text(enemyTextString, "Fonts/bebas.ttf", CENTER, ofColor().white, 140, 90, 12, "UI");
+	scoreString = "Score: " + ofToString(GMANAGER->GetScore());
+	scoreText = Text(scoreString, "Fonts/bebas.ttf", CENTER, ofColor().white, 390, 90, 12, "UI");
 
 	menuText = Text("Press Any key to start!", "Fonts/Cornerstone.ttf", CENTER, ofColor().red, ofGetWindowWidth() / 2, ofGetWindowHeight() / 2, 30, "MenuUI");
 	menuLogo = Text("Creepers", "Fonts/bebas.ttf", CENTER, ofColor().black, ofGetWindowWidth() / 2, ofGetWindowHeight() / 2 - 200, 30, "MenuUI");
 
 	pauseText = Text("Paused!", "Fonts/Cornerstone.ttf", CENTER, ofColor().red, ofGetWindowWidth() / 2, ofGetWindowHeight() / 2, 30, "PauseUI");
-	
+	gameOverText = Text("Game Over", "Fonts/Cornerstone.ttf", CENTER, ofColor().red, ofGetWindowWidth() / 2, ofGetWindowHeight() / 2, 30, "GameOverUI");
 }
 
 void ofApp::Clean() {

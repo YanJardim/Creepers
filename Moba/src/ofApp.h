@@ -45,7 +45,11 @@ class ofApp : public ofBaseApp{
 		Text enemySpawnTimeText;
 		string enemySpawnTimeString;
 
+		Text scoreText;
+		string scoreString;
+
 		Text menuText, menuLogo, pauseText;
+		Text gameOverText;
 
 
 		

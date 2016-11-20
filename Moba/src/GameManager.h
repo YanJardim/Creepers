@@ -16,6 +16,7 @@ private:
 	
 	gameState state;
 	Player *player;
+	int score;
 
 public:
 	static GameManager *instance;
@@ -33,6 +34,7 @@ public:
 	void Start(Player *player) {
 		state = MENU;
 		this->player = player;
+		this->score = 0;
 	}
 
 	void ChangeState(gameState newValue) {
@@ -55,5 +57,13 @@ public:
 		else if (state == PAUSE)
 			state = GAME;
 		
+	}
+
+	void AddScore(int amount) {
+		score += amount;
+	}
+
+	int GetScore() {
+		return score;
 	}
 };
