@@ -95,11 +95,19 @@ void ofApp::keyPressed(int key){
 		EMANAGER->SetSpawnRatio(EMANAGER->GetSpawnRatio() + 100);
 	}
 
+	if (key == OF_KEY_CONTROL) {
+		ctrlPressed = true;
+	}
+
+	
+
 }
 
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key){
-
+	if (key == OF_KEY_CONTROL) {
+		ctrlPressed = false;
+	}
 }
 
 //--------------------------------------------------------------
@@ -122,9 +130,14 @@ void ofApp::mousePressed(int x, int y, int button){
 		WMANAGER->CheckMouseInside(Vector2D(x, y));
 	}
 
-	if (button == OF_MOUSE_BUTTON_1) {
+	if (button == OF_MOUSE_BUTTON_1 && ctrlPressed && showWaypoints) {
+		WMANAGER->CreateWaypoint(Vector2D(x, y));
+	}
+	else if (button == OF_MOUSE_BUTTON_1) {
 		player.Fire(Vector2D(x, y));
 	}
+
+	
 }
 
 //--------------------------------------------------------------

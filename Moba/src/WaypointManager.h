@@ -109,19 +109,6 @@ public:
 		}
 	}
 
-	/*Waypoint GetNearWaypoint(Vector2D position) {
-		double minDist = 9999;
-		Waypoint target;
-		for each (Waypoint a in waypoints)
-		{
-			double currentDist = MathUtils::GetDistance(position, a.GetPosition());
-			if (minDist > currentDist) {
-				minDist = currentDist;
-				target = a;
-			}
-		}
-		return target;
-	}*/
 	Waypoint GetNearWaypoint(Vector2D position) {
 		int maxHeight = 9999;
 		Waypoint target;
@@ -132,9 +119,7 @@ public:
 			{
 				maxHeight = a.GetHeight();
 				target = a;
-
 			}
-
 		}
 		return target;
 	}
@@ -148,14 +133,15 @@ public:
 			{
 				maxHeight = a.GetHeight();
 				target = a;
-
 			}
 			
 		}
 		return target;
 	}
 
-	
+	void CreateWaypoint(Vector2D position) {
+		waypoints.push_back(Waypoint(position, target));
+	}
 
 	void Clean() {
 		delete target;

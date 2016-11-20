@@ -30,7 +30,7 @@ class ofApp : public ofBaseApp{
 		Player player;
 		Map map;
 
-		bool showWaypoints;
+		bool showWaypoints, ctrlPressed;
 
 		Text enemySpeedText;
 		string enemyTextString;
