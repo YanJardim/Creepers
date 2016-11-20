@@ -3,7 +3,7 @@
 Creepers is a OpenFrameworks game, based on MOBA genre.
 
 
-### How to play
+## How to play
 
 Defeat the enemies with your gun and try to make more points! Don't let them touch you because you die.
 
@@ -23,7 +23,7 @@ Defeat the enemies with your gun and try to make more points! Don't let them tou
 |esc                |Pause
 
 
-### Features
+## Features
 
 |Feature                |Where is                           |
 |:---------------------:|-----------------------------------|
@@ -38,6 +38,11 @@ Defeat the enemies with your gun and try to make more points! Don't let them tou
 |Enemy follows player   |Line 114 Enemy.h                   |
 |Player shoot           |Line 66 - offApp.cpp               |
 
+
+## Screenshots
+
+[Game]: http://i.imgur.com/veDtuCa.png "Game"
+[GameOver]: http://i.imgur.com/1cZPqIC.png "Game Over Screen"
 
 
 
