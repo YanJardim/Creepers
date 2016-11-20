@@ -7,7 +7,7 @@ Creepers is a OpenFrameworks game, based on MOBA genre.
 
 #### Commands
 
-|Key                |Key                                |
+|Key                |Function                           |
 |:-----------------:|-----------------------------------|
 |Left Button        |Shoot         
 |Right Button       |Move player
