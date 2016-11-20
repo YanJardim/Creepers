@@ -1,9 +1,12 @@
 #pragma once
 
+#define WMANAGER WaypointManager::GetInstance()
+
 #include "ofMain.h"
 #include "Vector2D.h"
 #include "Waypoint.h"
 #include "Map.h"
+
 
 
 using namespace math;
@@ -17,6 +20,7 @@ private:
 
 	const int detectRadius = 37;
 	const int distanceBetweenPoints = 30;
+
 
 public:
 	static WaypointManager *instance;
@@ -118,22 +122,40 @@ public:
 		}
 		return target;
 	}*/
-
 	Waypoint GetNearWaypoint(Vector2D position) {
 		int maxHeight = 9999;
 		Waypoint target;
 		for each (Waypoint a in waypoints)
 		{
 			double currentDist = MathUtils::GetDistance(position, a.GetPosition());
-			if (a.GetHeight() <= maxHeight && currentDist < detectRadius)
+			if (a.GetHeight() <= maxHeight && (currentDist < detectRadius))
 			{
 				maxHeight = a.GetHeight();
 				target = a;
 
 			}
+
 		}
 		return target;
 	}
+	Waypoint GetNearWaypoint(Vector2D position, bool followedPlayer) {
+		int maxHeight = 9999;
+		Waypoint target;
+		for each (Waypoint a in waypoints)
+		{
+			double currentDist = MathUtils::GetDistance(position, a.GetPosition());
+			if (a.GetHeight() <= maxHeight && (currentDist < detectRadius || (followedPlayer && currentDist < detectRadius + 200)))
+			{
+				maxHeight = a.GetHeight();
+				target = a;
+
+			}
+			
+		}
+		return target;
+	}
+
+	
 
 	void Clean() {
 		delete target;

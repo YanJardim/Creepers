@@ -1,6 +1,6 @@
 #pragma once
 
-#define WMANAGER WaypointManager::GetInstance()
+
 #define EMANAGER EnemyManager::GetInstance()
 
 #include "Enemy.h"
@@ -58,6 +58,8 @@ public:
 			else if (r == 2)
 				aux = new Enemy(new Vector2D(spawnPosition.x, spawnPosition.y+50), speed, size, "Enemy");
 
+			aux->SetPlayer(player);
+
 			enemies.push_back(aux);
 		}
 
@@ -99,14 +101,15 @@ public:
 	}
 
 	bool CheckCollision(GameObject *other) {
-		int index = 0;
 		
+		if (other->CompareTag("Bullet")) {
+			int index = 0;
 			for each (Enemy *a in enemies)
 			{
 				if (MathUtils::GetDistance(*(a->GetPosition()), *(other->GetPosition())) < 80) {
 					bool col = MathUtils::CheckCollision(a, other);
 					if (col) {
-						if (other->CompareTag("Bullet") ){
+						
 							enemies.erase(enemies.begin() + index);
 							
 							auto_ptr<GameObject> b = auto_ptr<GameObject>(other);
@@ -120,8 +123,9 @@ public:
 
 						
 					}
+				index++;
 			}
-			index++;
+			
 		}
 		return false;
 	}

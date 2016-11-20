@@ -13,6 +13,8 @@ private:
 	bool block, debug, visited;
 	ofColor color, firstColor;
 
+	bool player = false;
+
 public:
 
 	Waypoint() {};
@@ -122,5 +124,13 @@ public:
 
 	ofColor GetFirstColor() {
 		return firstColor;
+	}
+
+	bool IsPlayer() {
+		return player;
+	}
+
+	void SetPlayer(bool newValue) {
+		this->player = newValue;
 	}
 };

@@ -3,6 +3,8 @@
 #include "GameObject.h"
 #include "MathUtils.h"
 #include "Bullet.h"
+#include "Waypoint.h"
+
 
 using namespace math;
 
@@ -16,7 +18,7 @@ private:
 
 	int speed, bulletSpeed;
 	bool target;
-		
+	Waypoint playerWaypoint;
 
 public:
 	Player() {
@@ -31,6 +33,9 @@ public:
 		CreateSquare(size);
 		FillPoly(path, graphics, ofColor().darkGray);
 		this->velocity = Vector2D(0, 0);
+		playerWaypoint = Waypoint(*(position), position);
+		playerWaypoint.SetPlayer(true);
+
 	}
 	Player(Vector2D *position, int speed, int bulletSpeed, int size, string tag) : GameObject(position, Vector2D(size, size), tag){
 		this->speed = speed;
@@ -40,6 +45,8 @@ public:
 		CreateSquare(size);
 		FillPoly(path, graphics, ofColor().darkGray);
 		this->velocity = Vector2D(0, 0);
+		playerWaypoint = Waypoint(*(position), position);
+		playerWaypoint.SetPlayer(true);
 
 	}
 
@@ -52,11 +59,14 @@ public:
 		graphics.draw();
 		path.draw();
 		
-	
+		playerWaypoint.Draw();
 
 	}
 	void Update() {
+		playerWaypoint.SetPosition(*(position));
+		playerWaypoint.Update();
 		
+		//cout << playerWaypoint.GetHeight() << " ";
 		if (mouse.size() > 0.1) {
 			auto direction = normalize(mouse - *(position));
 			velocity = direction * speed;
@@ -148,7 +158,9 @@ public:
 		}
 	}
 
-	
+	Waypoint GetWaypoint() {
+		return playerWaypoint;
+	}
 	
 	
 };

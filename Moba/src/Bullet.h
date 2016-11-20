@@ -8,7 +8,7 @@ class Bullet : public GameObject{
 private:
 	int angle, speed, index;
 	Vector2D *target = nullptr, velocity;
-
+	bool playerB;
 public:
 	Vector2D p;
 
@@ -18,6 +18,8 @@ public:
 		this->speed = speed;
 		this->target = target;
 		this->index = index;
+
+		playerB = false;
 
 	}
 
@@ -74,5 +76,10 @@ public:
 		this->index = newValue;
 	}
 
-
+	void SetPlayerB(bool newValue) {
+		this->playerB = newValue;
+	}
+	bool GetPlayerB() {
+		return this->playerB;
+	}
 };

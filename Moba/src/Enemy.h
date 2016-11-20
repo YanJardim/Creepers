@@ -3,41 +3,43 @@
 #include "GameObject.h"
 #include "Waypoint.h"
 #include "WaypointManager.h"
+#include "Player.h"
 
-#define WMANAGER WaypointManager::GetInstance()
-#define EMANAGER EnemyManager::GetInstance()
 
 
 class Enemy : public GameObject{
 private:
-	Waypoint target;
+	Waypoint target, auxTarget;
 	Vector2D velocity;
 
 	ofPolyline vision, box;
 	ofPath visionPath, graphicsPath;
 
 	int speed, angle, index, visionSize;
-	bool canRotate;
+	bool canRotate, canFollowPlayer, followedPlayer;
 
+	Player *player;
+	
 	
 public:
 	Enemy() {}
 	Enemy(Vector2D *position, int speed, int size, string tag) : GameObject(position, Vector2D(size, size), tag){
 		angle = 0;
 		this->speed = speed;
-		this->visionSize = size;
+		this->visionSize = 50;
 		
 		CreateTriangle(vision, visionSize);
 		CreateSquare(size);
 		FillPoly(visionPath, vision, ofColor().gray);
 		FillPoly(graphicsPath, graphics, ofColor().black);
 		canRotate = false;
+		canFollowPlayer = false;
 		//target = *(position);
 
 		target.SetPosition(Vector2D(0.f, position->y));
 		velocity = normalize(MathUtils::GetDirection(*(position), target.GetPosition()));
 		
-		
+		followedPlayer = false;
 	}
 
 
@@ -47,11 +49,13 @@ public:
 
 	void Update() override {
 		UpdateTarget();
+		ChangeTargetToPlayer();
 		Follow();
 		CreateSquare(graphics, size.x);
-		CreateTriangle(vision,size.x);
-		FillPolyClear(visionPath, vision, ofColor().darkGray);
+		//CreateTriangle(vision,50);
+		//FillPolyClear(visionPath, vision, ofColor().darkGray);
 		FillPolyClear(graphicsPath, graphics, ofColor().red);
+		
 		
 	}
 
@@ -63,9 +67,11 @@ public:
 	void Follow() {
 		velocity = normalize(MathUtils::GetDirection(*(position), target.GetPosition()));
 
-		if (MathUtils::GetDistance(*(position), target.GetPosition()) > 2.f && !target.GetBlock()) {
-				*(position) += velocity * ofGetLastFrameTime() * speed;
-		}
+		
+			if (MathUtils::GetDistance(*(position), target.GetPosition()) > 2.f && !target.GetBlock()) {
+					*(position) += velocity * ofGetLastFrameTime() * speed;
+			}
+		
 		//else cout << MathUtils::GetDistance(*(position), target.GetPosition()) << endl;
 	}
 
@@ -82,7 +88,8 @@ public:
 
 				ofTranslate(-position->x,-position->y);
 				graphicsPath.draw();
-				visionPath.draw();
+				graphics.draw();
+				//visionPath.draw();
 				//DrawCollider();
 
 			ofPopMatrix();
@@ -104,6 +111,24 @@ public:
 		ofSetColor(ofColor().white);
 	}
 
+	void ChangeTargetToPlayer() {
+		if (IsPlayerClose(200)) {
+			canFollowPlayer = true;
+			auxTarget = target;
+			target = player->GetWaypoint();
+			followedPlayer = true;
+		}
+		else if (canFollowPlayer) canFollowPlayer = false;
+		
+	}
+
+	bool IsPlayerClose(int dist) {
+		if (MathUtils::GetDistance(*(position), *(player->GetPosition())) < dist) {
+			return true;
+		}
+		return false;
+	}
+
 	void SetTarget(Waypoint target) {
 		this->target = target;
 	}
@@ -119,8 +144,12 @@ public:
 	
 
 	void UpdateTarget() {
-		Waypoint target = WMANAGER->GetNearWaypoint(*(GetPosition()));
-		SetTarget(target);
+		if (!canFollowPlayer) {
+			Waypoint target = WMANAGER->GetNearWaypoint(*(GetPosition()), followedPlayer);
+			SetTarget(target);
+		}
+		else ChangeTargetToPlayer();
+
 		LookAt(target.GetPosition());
 	}
 
@@ -136,6 +165,22 @@ public:
 	}
 	void SetIndex(int newValue) {
 		this->index = newValue;
+	}
+
+	void SetPlayer(Player *player) {
+		this->player = player;
+	}
+
+	Player* GetPlayer() {
+		return this->player;
+	}
+
+	bool GetFollowedPlayer() {
+		return followedPlayer;
+	}
+
+	void SetFollowedPlayer(int newValue) {
+		this->followedPlayer = newValue;
 	}
 
 	

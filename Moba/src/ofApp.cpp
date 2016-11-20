@@ -7,7 +7,7 @@ void ofApp::setup(){
 	ofSetWindowPosition(ofGetScreenWidth()/2 - ofGetWindowWidth()/2, ofGetScreenHeight() / 2 - ofGetWindowHeight()/2);
 
 	map = Map(0, 0, ofImage("Images/map.png"), "Map");
-	player = Player(new Vector2D(map.GetBase()), 200, 1000, 20, "Player");
+	player = Player(new Vector2D(map.GetBase()), 400, 1000, 20, "Player");
 	
 	WMANAGER->Start(new Vector2D(map.GetBase()), map);
 	EMANAGER->Start(Vector2D(map.GetEnemyBase().x, map.GetEnemyBase().y), 2000, 100, 15, &player);
