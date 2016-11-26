@@ -122,6 +122,7 @@ void ofApp::keyPressed(int key){
 	}
 
 	else if (GMANAGER->CompareState(GAMEOVER)) {
+		Clean();
 		ofExit();
 	}
 

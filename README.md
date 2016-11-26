@@ -41,7 +41,7 @@ Defeat the enemies with your gun and try to make more points! Don't let them tou
 
 ## Screenshots
 
-![Game](http://i.imgur.com/veDtuCa.png)
+![Game](http://i.imgur.com/veDtuCa.png )
 ![GameOver](http://i.imgur.com/1cZPqIC.png)
 
 

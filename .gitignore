@@ -98,17 +98,18 @@ Desktop.ini
 
 # Android
 .csettings
-/Moba/bin/Zlib.dll
-/Moba/bin/ssleay32.dll
-/Moba/bin/Moba_debug.lib
-/Moba/bin/Moba_debug.exp
-/Moba/bin/Moba_debug.exe
-/Moba/bin/libeay32.dll
-/Moba/bin/glut32.dll
-/Moba/bin/freetype.dll
-/Moba/bin/FreeImage.dll
-/Moba/bin/fmodexL.dll
-/Moba/bin/fmodex.dll
-/Moba/bin/assimp.dll
+
+#/Moba/bin/Zlib.dll
+#/Moba/bin/ssleay32.dll
+#/Moba/bin/Moba_debug.lib
+#/Moba/bin/Moba_debug.exp
+#/Moba/bin/Moba_debug.exe
+#/Moba/bin/libeay32.dll
+#/Moba/bin/glut32.dll
+#/Moba/bin/freetype.dll
+#/Moba/bin/FreeImage.dll
+#/Moba/bin/fmodexL.dll
+#/Moba/bin/fmodex.dll
+#/Moba/bin/assimp.dll
 
 !/Moba/LibMath/*
