@@ -25,7 +25,7 @@ Defeat the enemies with your gun and try to make more points! Don't let them tou
 
 ## Features
 
-|Feature                |Where is                           |
+|Feature                |File                               |
 |:---------------------:|-----------------------------------|
 |Map                    |Map.h                              |
 |Waypoints              |WaypointManager.h and Waypoint.h   |
